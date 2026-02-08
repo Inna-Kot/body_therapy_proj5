@@ -39,10 +39,12 @@ body {
 
 .fixed-top {
     position: fixed !important; 
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important; }
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important; 
+}
 
 #topnav {
     background: transparent !important; 
+    margin-top: 5px;
 }
 
 .nav-link, .text-black {
@@ -74,4 +76,24 @@ body {
 body header #topnav .input-group input.form-control {
     background-color: rgba(255, 255, 255, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+#delivery-banner {
+    background-color: #000 !important; 
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1020;
+}
+
+.bg-black {
+    background-color: #000 !important;
+}
+#delivery-banner h4 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: white !important;
+    margin: 0;
 }
