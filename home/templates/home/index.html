@@ -1,27 +1,64 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
-{% endblock %}
+    {% endblock %}
 
 {% block content %}
-    <main class="container h-100">
-        <div class="row h-100">
-            <div class="col-7 col-md-6 my-auto">
-                <h1 class="display-4 logo-font text-black">
-                    The path to recovery starts here.
-                </h1>
-                <div class="my-5">
-                    <h4>
-                        <a href="#" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">Book a Session</a>
-                    </h4>
+    <div class="container-fluid p-0">
+        <div class="hero-image-container" style="background-image: url('{% static 'images/hero.jpg' %}');">
+            <div class="row h-100 m-0 align-items-center justify-content-center text-center">
+                <div class="col-10 col-md-8 reveal">
+                    <h1 class="display-3 text-white logo-font font-weight-bold">The path to recovery starts here.</h1>
+                    <p class="lead text-white mb-5 text-uppercase letter-spacing-2">Vitaliy Body Therapy • Expert Wellness in Tralee</p>
+                    <a href="#" class="shop-now-button btn btn-lg rounded-0 py-3 px-5">Book a Session</a>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+
+    <div class="container my-5 py-5">
+        
+        <div class="row align-items-center mb-5 pb-5 reveal">
+            <div class="col-md-6">
+                <img src="{% static 'images/deep.png' %}" alt="Deep Tissue and Sport Massage" class="img-fluid shadow-sm">
+            </div>
+            <div class="col-md-6 px-lg-5">
+                <h2 class="logo-font mt-3 text-navy">Deep Tissue and Sport Massage</h2>
+                <p class="text-muted lead">Targeted relief for chronic tension and athletic recovery. This therapy focuses on realigning deeper layers of muscles and connective tissue to improve mobility and reduce pain.</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5 pb-5 flex-md-row-reverse reveal">
+            <div class="col-md-6">
+                <img src="{% static 'images/spa.png' %}" alt="Spa Therapy" class="img-fluid shadow-sm">
+            </div>
+            <div class="col-md-6 px-lg-5 text-md-right">
+                <h2 class="logo-font mt-3 text-navy">Spa Therapy</h2>
+                <p class="text-muted lead">A sanctuary for your mind and body. Our restorative Spa Therapy sessions are designed to lower cortisol levels, improve circulation, and provide a profound sense of relaxation.</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5 pb-5 reveal">
+            <div class="col-md-6">
+                <div class="row no-gutters shadow-sm">
+                    <div class="col-6"><img src="{% static 'images/tool.png' %}" class="img-fluid border-right border-white" alt="Tools"></div>
+                    <div class="col-6"><img src="{% static 'images/gun.png' %}" class="img-fluid" alt="Gun"></div>
+                </div>
+            </div>
+            <div class="col-md-6 px-lg-5">
+                <h2 class="logo-font mt-3 text-navy">Advanced Soft Tissue Mobilization</h2>
+                <p class="text-muted lead">Combining <strong>IASTM</strong> and <strong>Percussive Therapy</strong> to effectively break down scar tissue and myofascial restrictions.</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-5 reveal flex-md-row-reverse">
+            <div class="col-md-6">
+                <img src="{% static 'images/tape.png' %}" alt="Kinesiotaping" class="img-fluid shadow-sm">
+            </div>
+            <div class="col-md-6 px-lg-5 text-md-right">
+                <h2 class="logo-font mt-3 text-navy">Kinesiotaping</h2>
+                <p class="text-muted lead">Functional support without restricting movement. Kinesiotaping helps stabilize joints, reduce inflammation, and enhance natural healing processes.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

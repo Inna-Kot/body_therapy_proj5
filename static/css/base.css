@@ -3,11 +3,8 @@ html {
 }
 
 body {
-    background: url('/static/images/hero-image.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: calc(100vh - 164px);
-    color: #555;
-    font-family: 'Lato', sans-serif;
+    height: 100%;
+    margin: 0 
 }
 
 .logo-font {
@@ -40,5 +37,28 @@ body {
 }
 
 .header-container {
-    padding-top: 164px;
+   
+}
+
+.fixed-top {
+    position: fixed !important; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important; }
+
+#topnav {
+    background: transparent !important; 
+}
+
+.nav-link, .text-black {
+    color: white !important; 
+}
+
+.hero-image-container {
+    height: 100vh; 
+    background-size: cover;
+    background-position: center;
+    margin-top: 0; 
+    padding-top: 0;
+}
+.fixed-top {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%) !important;
 }
