@@ -36,9 +36,6 @@ body {
     color: white;
 }
 
-.header-container {
-   
-}
 
 .fixed-top {
     position: fixed !important; 
@@ -59,6 +56,22 @@ body {
     margin-top: 0; 
     padding-top: 0;
 }
+.hero-image-container h1 {
+    text-shadow: 3px 3px 10px rgba(0, 33, 71, 0.8), 
+                 -1px -1px 2px rgba(4, 99, 7, 0.5);
+}
+.hero-image-container p.lead {
+    font-weight: 500;
+    text-shadow: 2px 2px 5px rgba(0, 33, 71, 0.9);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px 15px; 
+}
+
 .fixed-top {
     background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%) !important;
+}
+
+body header #topnav .input-group input.form-control {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
 }
