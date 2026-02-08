@@ -1,0 +1,44 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url('/static/images/hero-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+    color: #555;
+    font-family: 'Lato', sans-serif;
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+.main-logo-link {
+    width: fit-content;
+}
+
+.text-black {
+    color: #000 !important;
+}
+
+.border-black {
+    border: 1px solid black !important;
+}
+
+.shop-now-button {
+    background: #222;
+    color: white;
+    min-width: 260px;
+}
+
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus {
+    background: #000;
+    color: white;
+}
+
+.header-container {
+    padding-top: 164px;
+}
