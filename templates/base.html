@@ -39,7 +39,7 @@
     <title>Body Therapy {% block extratitle %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top">
+    <header class="container-fluid fixed-top p-0">
         <div id="topnav" class="row d-none d-lg-flex align-items-start pt-3">
             <div class="col-12 col-lg-4 py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -47,7 +47,7 @@
                 </a>
             </div>
 
-            <div class="col-12 col-lg-4 py-1 py-lg-0">
+           <div class="col-12 col-lg-4 py-1 py-lg-0 mt-4">
                 <form method="GET" action="">
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
