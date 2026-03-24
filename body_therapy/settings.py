@@ -19,7 +19,8 @@ SECRET_KEY = 'django-insecure-3piihc=as26_sgw_i1iqlg-a3*8!yqoua+1l6uy23k$@&8_64@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allow Render domain and local environments
+ALLOWED_HOSTS = ['body-therapy-proj5.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
