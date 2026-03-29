@@ -6,7 +6,7 @@ cloudinary==1.44.1
 cryptography==46.0.4
 defusedxml==0.7.1
 dj-database-url==3.1.0
-Django==6.0.2
+Django==4.2.16
 django-allauth==65.14.0
 django-cloudinary-storage==0.3.0
 gunicorn==25.0.2
