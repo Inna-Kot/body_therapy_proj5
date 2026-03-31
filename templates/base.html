@@ -39,7 +39,7 @@
     <title>Body Therapy {% block extratitle %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top p-0">
+        <header class="container-fluid fixed-top p-0">
         <div id="topnav" class="row d-none d-lg-flex align-items-start pt-3">
             <div class="col-12 col-lg-4 py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -89,13 +89,24 @@
         </div>
     </header>
 
-    <div id="delivery-banner" class="row text-center m-0"> <div class="col bg-black text-white py-1"> <h4 class="logo-font my-1 text-uppercase">Professional sports massage & injury recovery sessions</h4>
+    <div id="delivery-banner" class="row text-center m-0"> 
+        <div class="col bg-black text-white py-1">
+             <h4 class="logo-font my-1 text-uppercase">Professional sports massage & injury recovery sessions</h4>
     </div>
 </div>
 
-    {% if messages %}
-        <div class="message-container"></div>
-    {% endif %}
+<div class="message-container position-fixed" style="top: 80px; right: 20px; z-index: 1050; min-width: 300px; max-width: 400px;">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 
     {% block page_header %}
     {% endblock %}
@@ -104,6 +115,12 @@
     {% endblock %}
 
     {% block postloadjs %}
+    <script>
+        // Automatically close pop-ups after 3.5 seconds
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 3500);
+    </script>
     {% endblock %}
     
   </body>
