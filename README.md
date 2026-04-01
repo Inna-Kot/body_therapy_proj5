@@ -16,7 +16,7 @@ The app is developed by [Inna Kot](https://github.com/Inna-Kot).
 
 ### Strategy & Target Audience
 Developed for a professional private sports massage practice, the app focuses on intuitive navigation and clear call-to-action paths for booking sessions.
-* **Site Owner (Private Therapist):** Needs to manage service offerings, track bookings, and build trust through client reviews.
+* **Site Owner (admin - Private Therapist):** Needs to manage service offerings, track bookings, and build trust through client reviews.
 * **Returning Clients (Athletes/Patients):** Need a quick way to book recovery sessions, view their treatment history, and manage their profile.
 * **First-Time Visitors:** Need to understand the types of therapy offered, see transparent pricing, and easily register for an account.
 
@@ -60,6 +60,26 @@ Developed for a professional private sports massage practice, the app focuses on
 | [#16](https://github.com/Inna-Kot/body_therapy_proj5/issues/16)| As a **Regular Client** I want to purchase a package of 5 therapy sessions at a discounted rate. | FUTURE |
 
 ---
+
+## Design
+
+The design of the application is crafted to reflect professionalism, medical expertise, and trust, which are crucial for a private sports massage and injury recovery practice. 
+
+### Color Scheme
+The color palette is deliberately minimalist, focusing on high contrast and readability to ensure a premium user experience.
+* **#000000 (Black) & #FFFFFF (White):** Form the core of the application, providing a clean, clinical, and highly professional contrast for the top banner, footer, and text.
+* **#222222 (Dark Grey):** Used for interactive elements like the "Book a Session" button to create a subtle hover effect without breaking the monochrome elegance.
+* **#002147 (Dark Blue) & #046307 (Dark Green):** Used strategically as text-shadow overlays (`rgba`) on hero images to improve text readability while subtly mirroring the brand colors found in the Vitaliy Body Therapy logo.
+
+### Typography
+* **Lato:** The primary font used throughout the application. It was chosen for its excellent readability across all devices and its modern, clean lines that suit a health and wellness platform. Text sizes and weights are varied (e.g., bold uppercase for headers) to create a clear information hierarchy.
+
+### Imagery
+* **Hero Backgrounds:** The site uses vintage anatomical drawings (e.g., the spine structure) as background imagery. This visual strategy immediately communicates a deep understanding of human anatomy and builds trust in the therapist's expertise.
+* **Cloudinary:** All dynamic imagery and media are served efficiently via Cloudinary to ensure fast loading times.
+
+### Wireframes
+* *The wireframes for Desktop, Tablet, and Mobile views will be added upon the completion of all frontend pages to accurately reflect the final user interface.*
 
 ## Technologies Used
 
