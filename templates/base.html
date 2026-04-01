@@ -43,7 +43,7 @@
         <div id="topnav" class="row d-none d-lg-flex align-items-start pt-3">
             <div class="col-12 col-lg-4 py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <img src="{% static 'images/logo.png' %}" alt="Body Therapy Logo" class="img-fluid" style="max-height: 240px;">
+                    <img src="{% static 'images/logo.png' %}" alt="Body Therapy Logo" class="img-fluid">
                 </a>
             </div>
 
@@ -87,12 +87,21 @@
                    </ul>
             </div>
         </div>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark w-100">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                {% include 'includes/main_nav.html' %}
+            </nav>
+        </div>
     </header>
-
     <div id="delivery-banner" class="row text-center m-0"> 
         <div class="col bg-black text-white py-1">
              <h4 class="logo-font my-1 text-uppercase">Professional sports massage & injury recovery sessions</h4>
     </div>
+
 </div>
 
 <div class="message-container position-fixed" style="top: 80px; right: 20px; z-index: 1050; min-width: 300px; max-width: 400px;">

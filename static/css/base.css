@@ -97,3 +97,34 @@ body header #topnav .input-group input.form-control {
     color: white !important;
     margin: 0;
 }
+@media (min-width: 992px) {
+    .main-logo-link {
+        /* Remove element from normal flow so header height shrinks */
+        position: absolute; 
+        /* Position slightly below the top delivery banner. Adjust if banner height changes */
+        top: 35px; 
+        /* Add spacing from the left edge of the screen */
+        left: 5%; 
+        /* Ensure the logo stays on top of background images and other content */
+        z-index: 1060; 
+    }
+    .main-logo-link img {
+        /* Control the size of the overlapping logo */
+        max-height: 200px; 
+        width: auto;
+    }
+}
+#main-nav .nav-link {
+    font-weight: 700;
+    font-size: 2rem; 
+    color: #1b4332 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
+    letter-spacing: 1px; 
+    transition: all 0.3s ease-in-out; 
+}
+
+/* * Hover effect for navigation links */
+#main-nav .nav-link:hover {
+    transform: scale(1.05); 
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1); 
+}
