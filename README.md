@@ -81,6 +81,37 @@ The color palette is deliberately minimalist, focusing on high contrast and read
 ### Wireframes
 * *The wireframes for Desktop, Tablet, and Mobile views will be added upon the completion of all frontend pages to accurately reflect the final user interface.*
 
+## Database Design
+
+### Entity Relationship Diagram (ERD)
+The following diagram illustrates the database schema and the relationships between the entities in the **Body Therapy** application.
+
+![Database Schema](docs/database.png)
+
+### Data Models
+
+#### **User & Profile**
+* **User Model (Standard Django):** Used for authentication and basic account information.
+* **Profile Model:** Extends the User model to store therapist-specific data such as phone numbers and the user's preference for being contacted via messaging apps (WhatsApp/Telegram).
+
+#### **Category & Service**
+* **Category Model:** Used to organize treatments into logical groups (e.g., Sports Massage, Rehabilitation, Gift Certificates).
+* **Service Model:** Stores detailed information about each treatment, including pricing, duration (in minutes), and associated imagery.
+
+#### **Booking (Transactional)**
+* **Booking Model:** The core of the appointment system. It records the specific date and time a User schedules a Service. It also includes a field for client comments, allowing for a personalized approach to therapy sessions.
+
+#### **User Interaction & Social**
+* **Review Model:** Enables registered users to provide feedback and ratings for services they have attended, providing essential social proof for the practice.
+* **Wishlist Model:** Acts as a junction table to facilitate a Many-to-Many relationship between Users and Services, allowing clients to save sessions they are interested in for future booking.
+
+### Relationships Summary
+* **One-to-One:** `User` is linked to a unique `Profile`.
+* **One-to-Many:** `Category` contains multiple `Services`.
+* **One-to-Many:** `User` can have multiple `Bookings`, `Reviews`, and `Wishlist` entries.
+* **One-to-Many:** `Service` can be associated with multiple `Bookings`, `Reviews`, and `Wishlist` entries.
+* **Many-to-Many:** `User` and `Service` are linked via the `Wishlist` table.
+
 ## Technologies Used
 
 * **Languages:** HTML5, CSS3, JavaScript, Python.
