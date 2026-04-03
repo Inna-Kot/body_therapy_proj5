@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        background: url('{% static "images/hero.jpg" %}') no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+
+<div class="overlay"></div>
+
+<div class="container-fluid pt-5 pb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-md-8 col-lg-6 bg-white p-5 rounded shadow-lg" style="opacity: 0.95;">
+            
+            <div class="image-container mb-4 text-center">
+                {% if service.image %}
+                    <a href="{{ service.image.url }}" target="_blank">
+                        <img class="img-fluid rounded shadow-sm" src="{{ service.image.url }}" alt="{{ service.name }}" style="max-height: 400px; object-fit: cover;">
+                    </a>
+                {% else %}
+                    <img class="img-fluid rounded shadow-sm" src="{{ MEDIA_URL }}noimage.png" alt="{{ service.name }}">
+                {% endif %}
+            </div>
+
+            <h2 class="mb-3 font-weight-bold text-center">{{ service.name }}</h2>
+
+            <p class="mb-4 text-justify">{{ service.description }}</p>
+
+            <p class="lead font-weight-bold mb-2 text-center text-success">Price: €{{ service.price }}</p>
+
+            {% if service.duration_minutes %}
+                <p class="text-muted mb-4 text-center">
+                    <i class="far fa-clock"></i> Duration: {{ service.duration_minutes }} mins
+                </p>
+            {% endif %}
+
+            <div class="mt-4 text-center">
+                <button class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
+                    Book Now
+                </button>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0">
+                    <i class="fas fa-chevron-left"></i> Back to Services
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
