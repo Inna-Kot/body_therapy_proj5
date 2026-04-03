@@ -1,6 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block page_header %}
+<style>
+    /* Наші кастомні hover-ефекти */
+    .hover-image {
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .hover-image:hover {
+        filter: brightness(1.15); /* Робить фото на 15% світлішим */
+        transform: scale(1.02); /* Збільшує фото на 2% для ефекту наближення */
+    }
+
+    .hover-link {
+        text-decoration: none !important;
+    }
+    
+    .hover-link h2 {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .hover-link:hover h2 {
+        text-decoration: underline; /* Додає підкреслення */
+        color: #000 !important; /* Робить колір тексту насиченішим */
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -10,53 +35,69 @@
                 <div class="col-10 col-md-8 reveal">
                     <h1 class="display-3 text-white logo-font font-weight-bold">The path to recovery starts here.</h1>
                     <p class="lead text-white mb-5 text-uppercase letter-spacing-2">Vitaliy Body Therapy • Expert Wellness in Tralee</p>
-                    <a href="#" class="shop-now-button btn btn-lg rounded-0 py-3 px-5">Book a Session</a>
+                    <a href="#services" class="shop-now-button btn btn-lg rounded-0 py-3 px-5">Book a Session</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container my-5 py-5">
+    <div class="container my-5 py-5" id="services">
         
         <div class="row align-items-center mb-5 pb-5 reveal">
             <div class="col-md-6">
-                <img src="{% static 'images/deep.png' %}" alt="Deep Tissue and Sport Massage" class="img-fluid shadow-sm">
+                <a href="{% url 'service_detail' 1 %}">
+                    <img src="{% static 'images/deep.png' %}" alt="Deep Tissue and Sport Massage" class="img-fluid shadow-sm hover-image">
+                </a>
             </div>
             <div class="col-md-6 px-lg-5">
-                <h2 class="logo-font mt-3 text-navy">Deep Tissue and Sport Massage</h2>
+                <a href="{% url 'service_detail' 1 %}" class="hover-link">
+                    <h2 class="logo-font mt-3 text-navy">Deep Tissue and Sport Massage</h2>
+                </a>
                 <p class="text-muted lead">Targeted relief for chronic tension and athletic recovery. This therapy focuses on realigning deeper layers of muscles and connective tissue to improve mobility and reduce pain.</p>
             </div>
         </div>
 
         <div class="row align-items-center mb-5 pb-5 flex-md-row-reverse reveal">
             <div class="col-md-6">
-                <img src="{% static 'images/spa.png' %}" alt="Spa Therapy" class="img-fluid shadow-sm">
+                <a href="{% url 'service_detail' 2 %}">
+                    <img src="{% static 'images/spa.png' %}" alt="Spa Therapy" class="img-fluid shadow-sm hover-image">
+                </a>
             </div>
             <div class="col-md-6 px-lg-5 text-md-right">
-                <h2 class="logo-font mt-3 text-navy">Spa Therapy</h2>
+                <a href="{% url 'service_detail' 2 %}" class="hover-link">
+                    <h2 class="logo-font mt-3 text-navy">Spa Therapy</h2>
+                </a>
                 <p class="text-muted lead">A sanctuary for your mind and body. Our restorative Spa Therapy sessions are designed to lower cortisol levels, improve circulation, and provide a profound sense of relaxation.</p>
             </div>
         </div>
 
         <div class="row align-items-center mb-5 pb-5 reveal">
             <div class="col-md-6">
-                <div class="row no-gutters shadow-sm">
-                    <div class="col-12"><img src="{% static 'images/tool.png' %}" class="img-fluid border-right border-white" alt="Tools"></div>
-                    <div class="col-12"><img src="{% static 'images/gun.png' %}" class="img-fluid" alt="Gun"></div>
-                </div>
+                <a href="{% url 'service_detail' 3 %}">
+                    <div class="row no-gutters shadow-sm hover-image">
+                        <div class="col-12"><img src="{% static 'images/tool.png' %}" class="img-fluid border-right border-white" alt="Tools"></div>
+                        <div class="col-12"><img src="{% static 'images/gun.png' %}" class="img-fluid" alt="Gun"></div>
+                    </div>
+                </a>
             </div>
             <div class="col-md-6 px-lg-5">
-                <h2 class="logo-font mt-3 text-navy">Advanced Soft Tissue Mobilization</h2>
+                <a href="{% url 'service_detail' 3 %}" class="hover-link">
+                    <h2 class="logo-font mt-3 text-navy">Advanced Soft Tissue Mobilization</h2>
+                </a>
                 <p class="text-muted lead">Combining <strong>IASTM</strong> and <strong>Percussive Therapy</strong> to effectively break down scar tissue and myofascial restrictions.</p>
             </div>
         </div>
 
         <div class="row align-items-center mb-5 reveal flex-md-row-reverse">
             <div class="col-md-6">
-                <img src="{% static 'images/tape.png' %}" alt="Kinesiotaping" class="img-fluid shadow-sm">
+                <a href="{% url 'service_detail' 4 %}">
+                    <img src="{% static 'images/tape.png' %}" alt="Kinesiotaping" class="img-fluid shadow-sm hover-image">
+                </a>
             </div>
             <div class="col-md-6 px-lg-5 text-md-right">
-                <h2 class="logo-font mt-3 text-navy">Kinesiotaping</h2>
+                <a href="{% url 'service_detail' 4 %}" class="hover-link">
+                    <h2 class="logo-font mt-3 text-navy">Kinesiotaping</h2>
+                </a>
                 <p class="text-muted lead">Functional support without restricting movement. Kinesiotaping helps stabilize joints, reduce inflammation, and enhance natural healing processes.</p>
             </div>
         </div>
