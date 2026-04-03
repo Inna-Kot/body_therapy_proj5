@@ -1,0 +1,50 @@
+[
+  {
+    "pk": 1,
+    "model": "services.service",
+    "fields": {
+      "category": 1,
+      "name": "Deep Tissue and Sport Massage",
+      "description": "Targeted relief for chronic tension and athletic recovery. This therapy focuses on realigning deeper layers of muscles and connective tissue to improve mobility and reduce pain.",
+      "price": 65.0,
+      "duration_minutes": 60,
+      "image": "deep.png"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "services.service",
+    "fields": {
+      "category": 2,
+      "name": "Spa Therapy",
+      "description": "A sanctuary for your mind and body. Our restorative Spa Therapy sessions are designed to lower cortisol levels, improve circulation, and provide a profound sense of relaxation.",
+      "price": 70.0,
+      "duration_minutes": 60,
+      "image": "spa.png"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "services.service",
+    "fields": {
+      "category": 1,
+      "name": "Advanced Soft Tissue Mobilization",
+      "description": "Combining IASTM and Percussive Therapy to effectively break down scar tissue and myofascial restrictions.",
+      "price": 75.0,
+      "duration_minutes": 60,
+      "image": "gun.png"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "services.service",
+    "fields": {
+      "category": 1,
+      "name": "Kinesiotaping",
+      "description": "Functional support without restricting movement. Kinesiotaping helps stabilize joints, reduce inflammation, and enhance natural healing processes.",
+      "price": 20.0,
+      "duration_minutes": 15,
+      "image": "tape.png"
+    }
+  }
+]
