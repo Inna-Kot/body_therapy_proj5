@@ -46,11 +46,22 @@
                 </p>
             {% endif %}
 
-            <div class="mt-4 text-center">
-                <button class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
+           <div class="mt-4 text-center">
+    <form class="form" action="{% url 'add_to_bag' service.id %}" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-12">
+                <input type="hidden" name="quantity" value="1" data-item_id="{{ service.id }}" id="id_qty_{{ service.id }}">
+                
+                <button type="submit" class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
                     Book Now
                 </button>
             </div>
+            
+            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+        </div>
+    </form>
+</div>
             
             <div class="mt-4 text-center">
                 <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0">
