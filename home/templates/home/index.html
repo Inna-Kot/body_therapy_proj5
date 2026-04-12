@@ -3,14 +3,13 @@
 
 {% block page_header %}
 <style>
-    /* Наші кастомні hover-ефекти */
-    .hover-image {
+       .hover-image {
         transition: all 0.3s ease-in-out;
     }
     
     .hover-image:hover {
-        filter: brightness(1.15); /* Робить фото на 15% світлішим */
-        transform: scale(1.02); /* Збільшує фото на 2% для ефекту наближення */
+        filter: brightness(1.15); 
+        transform: scale(1.02); 
     }
 
     .hover-link {
@@ -22,8 +21,8 @@
     }
 
     .hover-link:hover h2 {
-        text-decoration: underline; /* Додає підкреслення */
-        color: #000 !important; /* Робить колір тексту насиченішим */
+        text-decoration: underline; 
+        color: #000 !important; 
     }
 </style>
 {% endblock %}
@@ -101,5 +100,20 @@
                 <p class="text-muted lead">Functional support without restricting movement. Kinesiotaping helps stabilize joints, reduce inflammation, and enhance natural healing processes.</p>
             </div>
         </div>
+
+        <div class="row align-items-center mb-5 reveal">
+            <div class="col-md-6">
+                <a href="{% url 'services' %}?category=certificates">
+                    <img src="{% static 'images/certificate.png' %}" alt="Gift Certificate" class="img-fluid shadow-sm hover-image">
+                </a>
+            </div>
+            <div class="col-md-6 px-lg-5">
+                <a href="{% url 'services' %}?category=certificates" class="hover-link">
+                    <h2 class="logo-font mt-3 text-navy">Gift Certificate</h2>
+                </a>
+                <p class="text-muted lead">A warm gift for your family and friends to enjoy relaxation, healing, and professional care.</p>
+            </div>
+        </div>
+
     </div>
-{% endblock %}
+{% endblock %}exi
