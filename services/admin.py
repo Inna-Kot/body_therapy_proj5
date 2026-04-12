@@ -24,6 +24,15 @@ class ServiceAdmin(admin.ModelAdmin):
         'image',
     )
 
+    # Automatically generates slug from the name field
+    prepopulated_fields = {'slug': ('name',)}
+
+    # Adds a sidebar filter by category
+    list_filter = ('category',)
+
+    # Adds a search bar for name, description, and contraindications
+    search_fields = ('name', 'description', 'contraindications')
+
     ordering = ('sku',)
 
 admin.site.register(Service, ServiceAdmin)
