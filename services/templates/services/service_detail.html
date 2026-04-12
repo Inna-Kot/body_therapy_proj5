@@ -12,6 +12,7 @@
 {% block content %}
 
 <style>
+    /* Fixed background for a premium look */
     body {
         background: url('{% static "images/hero.jpg" %}') no-repeat center center fixed;
         background-size: cover;
@@ -35,7 +36,6 @@
             </div>
 
             <h2 class="mb-3 font-weight-bold text-center">{{ service.name }}</h2>
-
             <p class="mb-4 text-justify">{{ service.description }}</p>
 
             <hr>
@@ -67,24 +67,19 @@
             {% endif %}
 
             <div class="mt-4 text-center">
-                <form class="form" action="{% url 'add_to_bag' service.id %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="col-12">
-                            <input type="hidden" name="quantity" value="1" data-item_id="{{ service.id }}" id="id_qty_{{ service.id }}">
-                            
-                            <button type="submit" class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
-                                Book Now
-                            </button>
-                        </div>
-                        
-                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    </div>
-                </form>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'book_now' service.id %}" class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
+                        Book Time
+                    </a>
+                {% else %}
+                    <a href="{% url 'book_now' service.id %}" class="btn btn-black rounded-0 text-uppercase px-5 py-3 font-weight-bold">
+                        Login to Book
+                    </a>
+                {% endif %}
             </div>
             
             <div class="mt-4 text-center">
-                <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0">
+                <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0">
                     <i class="fas fa-chevron-left"></i> Back to Services
                 </a>
             </div>
