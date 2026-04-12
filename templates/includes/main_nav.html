@@ -1,10 +1,35 @@
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav mx-auto text-uppercase">
-
-        <li class="nav-item">
-            <a class="logo-font font-weight-bold nav-link text-white" href="#">
+        
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-white dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
             </a>
+            
+            <div class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="categoriesDropdown" style="min-width: 320px;">
+                
+                <span class="dropdown-header font-weight-bold text-navy px-3" style="font-size: 1.1rem;">Sports Massage</span>
+                <a href="{% url 'service_detail' 1 %}" class="dropdown-item py-2">Deep Tissue and Sport Massage</a>
+                <a href="{% url 'service_detail' 3 %}" class="dropdown-item py-2">Advanced Soft Tissue Mobilization</a>
+                
+                <div class="dropdown-divider my-2"></div>
+
+                <span class="dropdown-header font-weight-bold text-navy px-3" style="font-size: 1.1rem;">Spa & Wellness</span>
+                <a href="{% url 'service_detail' 2 %}" class="dropdown-item py-2">Spa Therapy</a>
+                
+                <div class="dropdown-divider my-2"></div>
+
+                <span class="dropdown-header font-weight-bold text-navy px-3" style="font-size: 1.1rem;">Injury Recovery</span>
+                <a href="{% url 'service_detail' 3 %}" class="dropdown-item py-2">Advanced Soft Tissue Mobilization</a>
+                <a href="{% url 'service_detail' 4 %}" class="dropdown-item py-2">Kinesiotaping</a>
+                
+                <div class="dropdown-divider border-dark my-2"></div>
+
+                <a href="{% url 'service_detail' 7 %}" class="dropdown-item py-2 font-weight-bold text-info">
+                    <i class="fas fa-gift mr-2"></i>Gift Certificate
+                </a>
+
+            </div>
         </li>
 
     </ul>
