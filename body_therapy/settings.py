@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'services',
     'bag',
+    'collaborations',
     'home',
  ]
 
