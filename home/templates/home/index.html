@@ -102,18 +102,18 @@
         </div>
 
         <div class="row align-items-center mb-5 reveal">
-            <div class="col-md-6">
-                <a href="{% url 'services' %}?category=certificates">
-                    <img src="{% static 'images/certificate.png' %}" alt="Gift Certificate" class="img-fluid shadow-sm hover-image">
-                </a>
-            </div>
-            <div class="col-md-6 px-lg-5">
-                <a href="{% url 'services' %}?category=certificates" class="hover-link">
-                    <h2 class="logo-font mt-3 text-navy">Gift Certificate</h2>
-                </a>
-                <p class="text-muted lead">A warm gift for your family and friends to enjoy relaxation, healing, and professional care.</p>
-            </div>
-        </div>
+    <div class="col-md-6">
+        <a href="{% url 'service_detail' 7 %}">
+            <img src="{% static 'images/certificate.png' %}" alt="Gift Certificate" class="img-fluid shadow-sm hover-image">
+        </a>
+    </div>
+    <div class="col-md-6 px-lg-5">
+        <a href="{% url 'service_detail' 7 %}" class="hover-link">
+            <h2 class="logo-font mt-3 text-navy">Gift Certificate</h2>
+        </a>
+        <p class="text-muted lead">A warm gift for your family and friends to enjoy relaxation, healing, and professional care.</p>
+    </div>
+</div>
 
     </div>
 {% endblock %}exi
