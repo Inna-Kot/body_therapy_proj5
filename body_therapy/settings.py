@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'services',
     'bag',
     'collaborations',
+    'booking',
     'home',
  ]
 
