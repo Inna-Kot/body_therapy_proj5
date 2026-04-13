@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from services.models import Service  # Імпортуємо твою модель послуг
+from services.models import Service  
 
 class Booking(models.Model):
     """

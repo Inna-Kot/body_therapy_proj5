@@ -3,11 +3,27 @@ from django.core.exceptions import ValidationError
 from .models import Booking
 from datetime import time
 
+TIME_CHOICES = [
+    ('09:00:00', '9:00 AM'),
+    ('10:00:00', '10:00 AM'),
+    ('11:00:00', '11:00 AM'),
+    ('12:00:00', '12:00 PM'),
+    ('13:00:00', '1:00 PM'),
+    ('14:00:00', '2:00 PM'),
+    ('15:00:00', '3:00 PM'),
+    ('16:00:00', '4:00 PM'),
+]
+
 class BookingForm(forms.ModelForm):
     """
     Form for customers to select a date and time for their session.
     Includes validation for business hours and weekends.
     """
+    time_slot = forms.ChoiceField(
+        choices=TIME_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control border-black rounded-0'})
+    )
+
     class Meta:
         model = Booking
         fields = ['booking_date', 'time_slot', 'customer_notes']
@@ -16,14 +32,6 @@ class BookingForm(forms.ModelForm):
             'booking_date': forms.DateInput(attrs={
                 'type': 'date', 
                 'class': 'form-control border-black rounded-0'
-            }),
-            # Standard HTML5 time picker with 30-minute steps
-            'time_slot': forms.TimeInput(attrs={
-                'type': 'time', 
-                'class': 'form-control border-black rounded-0',
-                'step': '1800',  # 1800 seconds = 30 minutes
-                'min': '09:00',  # Earliest booking time
-                'max': '20:00',  # Latest booking time
             }),
             'customer_notes': forms.Textarea(attrs={
                 'rows': 3, 
@@ -43,17 +51,3 @@ class BookingForm(forms.ModelForm):
             raise ValidationError("We are closed on weekends. Please choose a weekday.")
         
         return date
-
-    def clean_time_slot(self):
-        """
-        Check if the selected time is within business hours (09:00 - 20:00).
-        """
-        booking_time = self.cleaned_data.get('time_slot')
-        opening_time = time(9, 0)
-        closing_time = time(20, 0)
-
-        if booking_time:
-            if booking_time < opening_time or booking_time > closing_time:
-                raise ValidationError("Please select a time between 09:00 and 20:00.")
-        
-        return booking_time
