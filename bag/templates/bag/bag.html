@@ -11,6 +11,7 @@
 
 {% block content %}
 <style>
+    /* Custom background image for the booking bag page */
     body {
         background: url('{% static "images/bag.png" %}') no-repeat center center fixed;
         background-size: cover;
@@ -32,59 +33,54 @@
             {% if bag_items %}
                 <div class="table-responsive rounded">
                     <table class="table table-borderless table-sm">
-                        <thead class="text-black">
+                        <thead class="text-black border-bottom">
                             <tr>
                                 <th scope="col">Service Info</th>
-                                <th scope="col"></th>
                                 <th scope="col" class="text-center">Price</th>
-                                <th scope="col" class="text-center"></th>
-                                <th scope="col" class="text-right">Subtotal</th>
+                                <th scope="col" class="text-right">Action</th>
                             </tr>
                         </thead>
 
                         {% for item in bag_items %}
                             <tr class="border-bottom">
-                                <td class="p-3 w-25">
-                                    {% if item.service.image %}
-                                        <img class="img-fluid rounded" src="{{ item.service.image.url }}" alt="{{ item.service.name }}">
-                                    {% else %}
-                                        <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}">
-                                    {% endif %}
+                                <td class="py-3 w-50">
+                                    <div class="d-flex align-items-center">
+                                        {% if item.service.image %}
+                                            <img class="img-fluid rounded mr-3" src="{{ item.service.image.url }}" alt="{{ item.service.name }}" style="width: 80px;">
+                                        {% else %}
+                                            <img class="img-fluid rounded mr-3" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.service.name }}" style="width: 80px;">
+                                        {% endif %}
+                                        <div>
+                                            <p class="my-0"><strong>{{ item.service.name }}</strong></p>
+                                            <p class="my-0 small text-muted">Date: {{ item.booking_date }}</p>
+                                            <p class="my-0 small text-muted">Time: {{ item.time_slot }}</p>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td class="py-3">
-                                    <p class="my-0"><strong>{{ item.service.name }}</strong></p>
-                                    <p class="my-0 small text-muted">Date: {{ item.booking_date }}</p>
-                                    <p class="my-0 small text-muted">Time: {{ item.time_slot }}</p>
+                                <td class="py-3 text-center align-middle">
+                                    <p class="my-0 font-weight-bold">€{{ item.service.price }}</p>
                                 </td>
-                                <td class="py-3 text-center">
-                                    <p class="my-0">€{{ item.service.price }}</p>
-                                </td>
-                                <td class="py-3 text-center">                              
-                                    <a class="remove-item text-danger mt-2 d-block" id="remove_{{ item.item_key }}" style="cursor: pointer;"><small>Remove</small></a>
-                                </td>
-                                <td class="py-3 text-right">
-                                    <p class="my-0">€{{ item.service.price }}</p>
+                                <td class="py-3 text-right align-middle">                              
+                                    <a class="remove-item text-danger mt-2 d-block" id="remove_{{ item.item_key }}" style="cursor: pointer;">
+                                        <small><i class="fas fa-trash-alt mr-1"></i>Remove</small>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
                         <tr>
-                            <td colspan="5" class="pt-5 text-right">
-                                <h4 class="mt-4"><strong>Grand Total: €{{ total|floatformat:2 }}</strong></h4>
+                            <td colspan="3" class="pt-5 text-right">
+                                <h4 class="mt-4"><strong>Total Amount: €{{ total|floatformat:2 }}</strong></h4>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="text-right pb-4">
+                            <td colspan="3" class="text-right pb-4">
                                 <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg mr-2">
-                                    <span class="icon">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
+                                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
                                     <span class="text-uppercase">Keep Browsing</span>
                                 </a>
                                 <a href="#" class="btn btn-black rounded-0 btn-lg">
                                     <span class="text-uppercase">Secure Checkout</span>
-                                    <span class="icon">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
+                                    <span class="icon"><i class="fas fa-lock"></i></span>
                                 </a>
                             </td>
                         </tr>
@@ -94,9 +90,7 @@
                 <div class="text-center py-5">
                     <p class="lead mb-5">Your bag is empty.</p>
                     <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                        <span class="icon">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
+                        <span class="icon"><i class="fas fa-chevron-left"></i></span>
                         <span class="text-uppercase">Back to Services</span>
                     </a>
                 </div>
@@ -110,23 +104,17 @@
 {{ block.super }}
 <script type="text/javascript">
     /**
-     * Handle item removal using AJAX POST request to the dedicated remove view
+     * Handles service removal from the session bag via an AJAX POST request.
+     * Extracts the unique item_key from the element ID and reloads the page on success.
      */
     $('.remove-item').click(function(e) {
-        // Prevent default link click behavior
         e.preventDefault();
         
         var csrfToken = "{{ csrf_token }}";
-        // Extract the unique item_key from the element's ID
         var itemId = $(this).attr('id').split('remove_')[1];
-        
-        // Point to the dedicated remove URL
         var url = `/bag/remove/${itemId}/`;
-        
-        // Data payload only needs the CSRF token now
         var data = {'csrfmiddlewaretoken': csrfToken};
 
-        // Send the POST request and reload on success
         $.post(url, data)
          .done(function() {
              location.reload();
