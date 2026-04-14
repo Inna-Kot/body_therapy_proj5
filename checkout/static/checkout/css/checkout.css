@@ -31,3 +31,12 @@
         margin-top: 180px !important;
     }
 }
+/* Hide the main logo on the checkout page to prevent overlap with the form */
+.main-logo-link {
+    display: none !important;
+}
+
+/* Ensure the checkout container starts lower to avoid any header overlap */
+.container {
+    margin-top: 100px !important;
+}
