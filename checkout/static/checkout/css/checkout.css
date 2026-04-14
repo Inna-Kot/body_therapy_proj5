@@ -1,0 +1,33 @@
+/* Styling for the Stripe card element to match Bootstrap inputs */
+.StripeElement {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0; /* Match your project's sharp edges */
+    background-color: white;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.StripeElement--focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.StripeElement--invalid {
+    border-color: #dc3545;
+}
+
+/* Fix layout: reduce the massive gap before the button */
+.submit-button {
+    margin-top: 1.5rem !important; /* Replacing mt-5 with something smaller */
+}
+
+/* Adjust the overlay logo if it overlaps the form on checkout */
+@media (min-width: 992px) {
+    .checkout-container {
+        margin-top: 180px !important;
+    }
+}
