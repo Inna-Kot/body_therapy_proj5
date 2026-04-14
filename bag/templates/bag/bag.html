@@ -110,15 +110,23 @@
 {{ block.super }}
 <script type="text/javascript">
     /**
-     * Handle item removal using POST request
+     * Handle item removal using AJAX POST request to the dedicated remove view
      */
     $('.remove-item').click(function(e) {
+        // Prevent default link click behavior
+        e.preventDefault();
+        
         var csrfToken = "{{ csrf_token }}";
-        // Extract item_key
+        // Extract the unique item_key from the element's ID
         var itemId = $(this).attr('id').split('remove_')[1];
-        var url = `/bag/adjust/${itemId}/`;
-        var data = {'csrfmiddlewaretoken': csrfToken, 'quantity': 0};
+        
+        // Point to the dedicated remove URL
+        var url = `/bag/remove/${itemId}/`;
+        
+        // Data payload only needs the CSRF token now
+        var data = {'csrfmiddlewaretoken': csrfToken};
 
+        // Send the POST request and reload on success
         $.post(url, data)
          .done(function() {
              location.reload();

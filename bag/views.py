@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.http import HttpResponse
 from django.contrib import messages
 from services.models import Service
 
@@ -62,3 +63,26 @@ def adjust_bag(request, item_key):
                 
     request.session['bag'] = bag
     return redirect(reverse('view_bag'))
+
+def remove_from_bag(request, item_key):
+    """
+    Remove the specified booking from the shopping bag.
+    Handles the AJAX POST request from the remove button.
+    """
+    try:
+        bag = request.session.get('bag', {})
+        
+        if item_key in bag:
+            # Extract service ID to show the name in success message
+            service_id = bag[item_key].get('item_id')
+            service = get_object_or_404(Service, pk=service_id)
+            
+            bag.pop(item_key)
+            messages.success(request, f'Removed {service.name} booking from your bag.')
+
+        request.session['bag'] = bag
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        messages.error(request, f'Error removing item: {e}')
+        return HttpResponse(status=500)
