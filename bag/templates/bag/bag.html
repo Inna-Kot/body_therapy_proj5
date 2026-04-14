@@ -37,7 +37,7 @@
                                 <th scope="col">Service Info</th>
                                 <th scope="col"></th>
                                 <th scope="col" class="text-center">Price</th>
-                                <th scope="col" class="text-center">Qty</th>
+                                <th scope="col" class="text-center"></th>
                                 <th scope="col" class="text-right">Subtotal</th>
                             </tr>
                         </thead>
@@ -53,26 +53,14 @@
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong>{{ item.service.name }}</strong></p>
-                                    <p class="my-0 small text-muted">SKU: {{ item.service.sku|upper }}</p>
+                                    <p class="my-0 small text-muted">Date: {{ item.booking_date }}</p>
+                                    <p class="my-0 small text-muted">Time: {{ item.time_slot }}</p>
                                 </td>
                                 <td class="py-3 text-center">
                                     <p class="my-0">€{{ item.service.price }}</p>
                                 </td>
-                                <td class="py-3 text-center w-25">
-                                    <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
-                                        {% csrf_token %}
-                                        <div class="form-group mb-0">
-                                            <div class="input-group">
-                                                <input class="form-control form-control-sm qty_input" type="number"
-                                                    name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                    data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
-                                                <div class="input-group-append">
-                                                    <a class="update-link btn btn-sm btn-black rounded-0"><small>Update</small></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <a class="remove-item text-danger float-right mt-1" id="remove_{{ item.item_id }}" style="cursor: pointer;"><small>Remove</small></a>
+                                <td class="py-3 text-center">                              
+                                    <a class="remove-item text-danger mt-2 d-block" id="remove_{{ item.item_key }}" style="cursor: pointer;"><small>Remove</small></a>
                                 </td>
                                 <td class="py-3 text-right">
                                     <p class="my-0">€{{ item.service.price }}</p>
@@ -86,7 +74,7 @@
                         </tr>
                         <tr>
                             <td colspan="5" class="text-right pb-4">
-                                <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0 btn-lg mr-2">
+                                <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg mr-2">
                                     <span class="icon">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
@@ -105,7 +93,7 @@
             {% else %}
                 <div class="text-center py-5">
                     <p class="lead mb-5">Your bag is empty.</p>
-                    <a href="{% url 'home' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <a href="{% url 'services' %}" class="btn btn-outline-black rounded-0 btn-lg">
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
@@ -122,18 +110,11 @@
 {{ block.super }}
 <script type="text/javascript">
     /**
-     * Handle quantity updates on click
-     */
-    $('.update-link').click(function(e) {
-        var form = $(this).closest('.update-form');
-        form.submit();
-    })
-
-    /**
      * Handle item removal using POST request
      */
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
+        // Extract item_key
         var itemId = $(this).attr('id').split('remove_')[1];
         var url = `/bag/adjust/${itemId}/`;
         var data = {'csrfmiddlewaretoken': csrfToken, 'quantity': 0};
