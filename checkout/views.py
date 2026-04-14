@@ -10,9 +10,9 @@ from bag.contexts import bag_contents
 
 def checkout(request):
     """
-    Handle the checkout process:
-    POST: Processes the form, saves the order and line items.
-    GET: Initializes the Stripe Payment Intent.
+    Handle the checkout process.
+    POST: Validates the order form and saves the order to the database.
+    GET: Initializes the Stripe PaymentIntent and renders the checkout page.
     """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -20,21 +20,15 @@ def checkout(request):
     if request.method == 'POST':
         bag = request.session.get('bag', {})
 
-        form_data = {
-            'full_name': request.POST['full_name'],
-            'email': request.POST['email'],
-            'phone_number': request.POST['phone_number'],
-            'country': request.POST['country'],
-            'postcode': request.POST['postcode'],
-            'town_or_city': request.POST['town_or_city'],
-            'street_address1': request.POST['street_address1'],
-            'street_address2': request.POST['street_address2'],
-            'county': request.POST['county'],
-        }
-        order_form = OrderForm(form_data)
+        # We pass request.POST directly to the form to avoid MultiValueDictKeyError.
+        # This only captures the fields defined in OrderForm (Meta.fields).
+        order_form = OrderForm(request.POST)
         
         if order_form.is_valid():
+            # Save the order instance
             order = order_form.save()
+            
+            # Loop through the bag items to create OrderLineItems
             for item_key, item_data in bag.items():
                 try:
                     service = Service.objects.get(id=item_data['item_id'])
@@ -53,13 +47,15 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_bag'))
 
+            # Handle the "save info" checkbox and redirect to success page
             request.session['save_info'] = 'save-info' in request.POST
-            # We will create checkout_success later
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
+            # If form fails validation (e.g. required model fields are missing)
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
+        # GET logic: Prepare the payment intent for Stripe
         bag = request.session.get('bag', {})
         if not bag:
             messages.error(request, "There's nothing in your bag at the moment")
@@ -67,7 +63,8 @@ def checkout(request):
 
         current_bag = bag_contents(request)
         total = current_bag['total']
-        stripe_total = round(total * 100)
+        stripe_total = round(total * 100) # Stripe expects amount in cents
+        
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
@@ -77,7 +74,8 @@ def checkout(request):
         order_form = OrderForm()
 
     if not stripe_public_key:
-        messages.warning(request, 'Stripe public key is missing.')
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
 
     template = 'checkout/checkout.html'
     context = {
@@ -88,9 +86,11 @@ def checkout(request):
 
     return render(request, template, context)
 
+
 def checkout_success(request, order_number):
     """
-    Handle successful checkouts
+    Handle successful payment confirmation.
+    Clears the session bag and renders the confirmation template.
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
@@ -99,6 +99,7 @@ def checkout_success(request, order_number):
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
 
+    # Clear the shopping bag from the session now that the order is complete
     if 'bag' in request.session:
         del request.session['bag']
 

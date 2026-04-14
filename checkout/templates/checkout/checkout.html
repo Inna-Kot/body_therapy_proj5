@@ -84,9 +84,9 @@
 
                 <div class="alert alert-info small py-3" role="alert">
                     <i class="fas fa-info-circle mr-2"></i>
-                    Для перенесення чи відміни бронювання — необхідно зв’язатися за телефоном: 
+                    To reschedule or cancel a booking, please contact us by phone: 
                     <a href="tel:+353000000000"><strong>+353 00 000 0000</strong></a>. 
-                    Перенесення можливе тільки не пізніше ніж за 24 години до початку сеансу.
+                    Rescheduling is only possible at least <strong>24 hours</strong> before the session starts.
                 </div>
 
                 <fieldset class="px-3">
@@ -97,21 +97,15 @@
 
                 <div class="submit-button text-right mt-3 mb-2">                    
                     <a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
-                        <span class="icon">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
+                        <span class="icon"><i class="fas fa-chevron-left"></i></span>
                         <span class="font-weight-bold">Adjust Bag</span>
                     </a>
                     <button id="submit-button" class="btn btn-black rounded-0">
                         <span class="font-weight-bold">Complete Order</span>
-                        <span class="icon">
-                            <i class="fas fa-lock"></i>
-                        </span>
+                        <span class="icon"><i class="fas fa-lock"></i></span>
                     </button>
                     <p class="small text-danger my-0 mt-2">
-                        <span class="icon">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </span>
+                        <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
                         <span>Your card will be charged <strong>€{{ total|floatformat:2 }}</strong></span>
                     </p>
                 </div>

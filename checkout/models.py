@@ -6,18 +6,22 @@ from services.models import Service
 
 class Order(models.Model):
     """
-    Model to store general order information
+    Model to store general order information.
+    Address fields are now optional for service-based checkout.
     """
     order_number = models.CharField(max_length=32, null=False, editable=False)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
-    country = models.CharField(max_length=40, null=False, blank=False)
+    
+    # Address fields made optional (null=True, blank=True) to avoid validation errors
+    country = models.CharField(max_length=40, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
-    town_or_city = models.CharField(max_length=40, null=False, blank=False)
-    street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    town_or_city = models.CharField(max_length=40, null=True, blank=True)
+    street_address1 = models.CharField(max_length=80, null=True, blank=True)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     county = models.CharField(max_length=80, null=True, blank=True)
+    
     date = models.DateTimeField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
@@ -56,9 +60,10 @@ class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     service = models.ForeignKey(Service, null=False, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=1)
+    
     # Booking specific fields
     booking_date = models.DateField(null=False, blank=False)
-    booking_time = models.TimeField(null=False, blank=False)
+    time_slot = models.TimeField(null=False, blank=False) # Renamed to match the view logic
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
