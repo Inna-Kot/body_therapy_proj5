@@ -71,24 +71,24 @@
         </div>
 
         <div class="col-12 col-lg-6">
-            <p class="text-muted">Please fill out the form below to complete your order</p>
+            <p class="text-muted">Please fill out your details to complete the booking</p>
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
-                <fieldset class="rounded px-3 mb-5">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+                
+                <fieldset class="rounded px-3 mb-4">
+                    <legend class="fieldset-label small text-black px-2 w-auto">Contact Details</legend>
                     {{ order_form.full_name | as_crispy_field }}
                     {{ order_form.email | as_crispy_field }}
-                </fieldset>
-                <fieldset class="rounded px-3 mb-5">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Delivery</legend>
                     {{ order_form.phone_number | as_crispy_field }}
-                    {{ order_form.street_address1 | as_crispy_field }}
-                    {{ order_form.street_address2 | as_crispy_field }}
-                    {{ order_form.town_or_city | as_crispy_field }}
-                    {{ order_form.county | as_crispy_field }}
-                    {{ order_form.postcode | as_crispy_field }}
-                    {{ order_form.country | as_crispy_field }}
                 </fieldset>
+
+                <div class="alert alert-info small py-3" role="alert">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Для перенесення чи відміни бронювання — необхідно зв’язатися за телефоном: 
+                    <a href="tel:+353000000000"><strong>+353 00 000 0000</strong></a>. 
+                    Перенесення можливе тільки не пізніше ніж за 24 години до початку сеансу.
+                </div>
+
                 <fieldset class="px-3">
                     <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
                     <div class="mb-3" id="card-element"></div>
@@ -97,15 +97,21 @@
 
                 <div class="submit-button text-right mt-3 mb-2">                    
                     <a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
-                        <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
                         <span class="font-weight-bold">Adjust Bag</span>
                     </a>
                     <button id="submit-button" class="btn btn-black rounded-0">
                         <span class="font-weight-bold">Complete Order</span>
-                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        <span class="icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
                     </button>
-                    <p class="small text-danger my-0">
-                        <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
+                    <p class="small text-danger my-0 mt-2">
+                        <span class="icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
                         <span>Your card will be charged <strong>€{{ total|floatformat:2 }}</strong></span>
                     </p>
                 </div>
