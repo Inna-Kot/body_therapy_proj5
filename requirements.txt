@@ -3,14 +3,14 @@ certifi==2026.1.4
 cffi==2.0.0
 charset-normalizer==3.4.4
 cloudinary==1.44.1
-crispy-bootstrap4==2026.2
+crispy-bootstrap4==2022.1
 cryptography==46.0.4
 defusedxml==0.7.1
 dj-database-url==3.1.0
-Django==6.0.4
+Django==4.2.16
 django-allauth==65.14.0
 django-cloudinary-storage==0.3.0
-django-crispy-forms==2.6
+django-crispy-forms==1.14.0
 gunicorn==25.0.2
 idna==3.11
 oauthlib==3.3.1
