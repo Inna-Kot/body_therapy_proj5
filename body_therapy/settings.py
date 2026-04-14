@@ -165,10 +165,10 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-# Add Stripe public and secret keys here later ...
+# Stripe Keys from env.py
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = 'your_public_key_here'
-STRIPE_SECRET_KEY = 'your_secret_key_here'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 
 # Crispy forms settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
