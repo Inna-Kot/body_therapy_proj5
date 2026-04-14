@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Booking
-from datetime import time
+from datetime import date
 
 TIME_CHOICES = [
     ('09:00:00', '9:00 AM'),
@@ -40,14 +40,23 @@ class BookingForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Prevent selecting past dates in the HTML date picker
+        self.fields['booking_date'].widget.attrs['min'] = date.today().strftime('%Y-%m-%d')
+
     def clean_booking_date(self):
         """
-        Check if the selected date is a weekend.
+        Check if the selected date is a weekend or in the past.
         """
-        date = self.cleaned_data.get('booking_date')
+        selected_date = self.cleaned_data.get('booking_date')
         
+        # Prevent past dates on the backend
+        if selected_date and selected_date < date.today():
+            raise ValidationError("You cannot book a date in the past.")
+
         # 5 is Saturday, 6 is Sunday in Python's datetime module
-        if date and date.weekday() >= 5:
+        if selected_date and selected_date.weekday() >= 5:
             raise ValidationError("We are closed on weekends. Please choose a weekday.")
         
-        return date
+        return selected_date
