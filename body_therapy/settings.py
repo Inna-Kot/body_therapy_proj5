@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'bag',
     'collaborations',
     'booking',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'checkout',
     'home',
  ]
@@ -162,3 +164,12 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
+
+# Add Stripe public and secret keys here later ...
+STRIPE_CURRENCY = 'eur'
+STRIPE_PUBLIC_KEY = 'your_public_key_here'
+STRIPE_SECRET_KEY = 'your_secret_key_here'
+
+# Crispy forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
