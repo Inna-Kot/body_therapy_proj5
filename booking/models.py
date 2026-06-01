@@ -40,10 +40,16 @@ class Booking(models.Model):
 
     def clean(self):
         """
-        Validate that the booking is not in the past.
+        Validate that the booking is not in the past and not on weekends.
         """
-        if self.booking_date < timezone.now().date():
-            raise ValidationError("You cannot book a session for a past date.")
-
+        # 1. Safe check for NoneType to prevent server crashes
+        if self.booking_date:
+            # 2. Check for past dates
+            if self.booking_date < timezone.now().date():
+                raise ValidationError("You cannot book a session for a past date.")
+            
+            # 3. Check for weekends (5 = Saturday, 6 = Sunday)
+            if self.booking_date.weekday() in [5, 6]:
+                raise ValidationError("Bookings are not available on weekends.")
     def __str__(self):
         return f"{self.user.username} - {self.service.name} on {self.booking_date}"
