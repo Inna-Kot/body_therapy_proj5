@@ -1,25 +1,29 @@
-{% extends "account/base_manage.html" %}
-{% load allauth i18n %}
-{% block head_title %}
-    {% trans "Sign Out" %}
-{% endblock head_title %}
+{% extends "base.html" %}
+{% load i18n %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Sign Out" %}
-    {% endelement %}
-    {% element p %}
-        {% trans 'Are you sure you want to sign out?' %}
-    {% endelement %}
-    {% url 'account_logout' as action_url %}
-    {% element form method="post" action=action_url no_visible_fields=True %}
-        {% slot body %}
-            {% csrf_token %}
-            {{ redirect_field }}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" %}
-                {% trans 'Sign Out' %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-{% endblock content %}
+<div class="overlay"></div>
+
+<div class="container pt-5 pb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-md-8 col-lg-6 bg-white p-5 rounded shadow-lg text-center" style="opacity: 0.95;">
+            
+            <h2 class="mb-3 font-weight-bold text-uppercase">{% trans "Sign Out" %}</h2>
+            <hr>
+
+            <p class="text-muted mb-4">{% trans "Are you sure you want to sign out?" %}</p>
+
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                <button class="btn btn-dark text-white rounded-0 text-uppercase px-5 py-3 font-weight-bold w-100" type="submit">
+                    {% trans "Sign Out" %}
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
