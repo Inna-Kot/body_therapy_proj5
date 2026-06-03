@@ -92,25 +92,30 @@ The following diagram illustrates the database schema and the relationships betw
 
 #### **User & Profile**
 * **User Model (Standard Django):** Used for authentication and basic account information.
-* **Profile Model:** Extends the User model to store therapist-specific data such as phone numbers and the user's preference for being contacted via messaging apps (WhatsApp/Telegram).
+* **UserProfile Model:** Extends the User model to store therapist-specific data or client contact details and default billing information.
 
 #### **Category & Service**
 * **Category Model:** Used to organize treatments into logical groups (e.g., Sports Massage, Rehabilitation, Gift Certificates).
 * **Service Model:** Stores detailed information about each treatment, including pricing, duration (in minutes), and associated imagery.
 
-#### **Booking (Transactional)**
-* **Booking Model:** The core of the appointment system. It records the specific date and time a User schedules a Service. It also includes a field for client comments, allowing for a personalized approach to therapy sessions.
+#### **E-commerce & Checkout (Transactional)**
+* **Order Model:** Handles the financial transaction details, storing customer billing info, total costs, and the unique Stripe payment intent ID.
+* **OrderLineItem Model:** Acts as a junction holding the specific services purchased within a single order, storing the historical price and selected date/time of the booking at the moment of purchase.
+
+#### **Booking (Scheduling)**
+* **Booking Model:** The core of the appointment system. It records the specific date and time a User schedules a Service, effectively turning an `OrderLineItem` into a calendar event. It includes status tracking (e.g., Confirmed, Cancelled).
 
 #### **User Interaction & Social**
 * **Review Model:** Enables registered users to provide feedback and ratings for services they have attended, providing essential social proof for the practice.
-* **Wishlist Model:** Acts as a junction table to facilitate a Many-to-Many relationship between Users and Services, allowing clients to save sessions they are interested in for future booking.
+* **Wishlist Model:** Allows clients to save sessions they are interested in for future booking.
 
 ### Relationships Summary
-* **One-to-One:** `User` is linked to a unique `Profile`.
-* **One-to-Many:** `Category` contains multiple `Services`.
-* **One-to-Many:** `User` can have multiple `Bookings`, `Reviews`, and `Wishlist` entries.
-* **One-to-Many:** `Service` can be associated with multiple `Bookings`, `Reviews`, and `Wishlist` entries.
-* **Many-to-Many:** `User` and `Service` are linked via the `Wishlist` table.
+* **One-to-One:** * `User` is linked to a unique `UserProfile`.
+* **One-to-Many:** * `Category` contains multiple `Services`.
+  * `User` can have multiple `Bookings`, `Reviews`, `Wishlists`, and `Orders`.
+  * `Service` can be associated with multiple `Bookings`, `Reviews`, and `OrderLineItems`.
+  * `Order` contains multiple `OrderLineItems`.
+* **Many-to-Many:** * `User` and `Service` are linked via the `Wishlist` table (depending on implementation, this acts as a junction).
 
 ## Technologies Used
 
