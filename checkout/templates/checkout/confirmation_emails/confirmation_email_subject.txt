@@ -1,0 +1,1 @@
+Body Therapy - Booking Confirmation (Order Number {{ order.order_number }})

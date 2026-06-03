@@ -24,7 +24,6 @@ def checkout(request):
         bag = request.session.get('bag', {})
 
         # We pass request.POST directly to the form to avoid MultiValueDictKeyError.
-        # This only captures the fields defined in OrderForm (Meta.fields).
         order_form = OrderForm(request.POST)
         
         if order_form.is_valid():
@@ -46,14 +45,16 @@ def checkout(request):
                     
                     # Create the actual Booking record for the user profile
                     if request.user.is_authenticated:
-                        Booking.objects.create(
+                        booking, created = Booking.objects.get_or_create(
                             user=request.user,
                             service=service,
                             booking_date=item_data['date'],
                             time_slot=item_data['time'],
-                            status=1  # 1 = Confirmed (paid)
+                            defaults={'status': 1}
                         )
-                   
+                        if not created:
+                            print(f"DEBUG: Booking for {service} on {item_data['date']} already exists.")
+                    
                 except Service.DoesNotExist:
                     messages.error(request, (
                         "One of the services in your bag wasn't found. "
@@ -66,7 +67,6 @@ def checkout(request):
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
-            # If form fails validation (e.g. required model fields are missing)
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
@@ -130,7 +130,7 @@ def checkout_success(request, order_number):
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
 
-    # Clear the shopping bag from the session now that the order is complete
+    # Clear the shopping bag from the session
     if 'bag' in request.session:
         del request.session['bag']
 

@@ -1,0 +1,10 @@
+    Hello {{ order.full_name }},
+
+    Thank you for choosing Body Therapy! 
+    We have successfully received your payment and confirmed your booking.
+
+    Order Number: {{ order.order_number }}
+    Total Amount Paid: €{{ order.order_total }}
+
+    Best regards,
+    The Body Therapy Team
