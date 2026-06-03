@@ -79,3 +79,32 @@ def cancel_booking(request, booking_id):
         'booking': booking
     }
     return render(request, 'booking/cancel_booking.html', context)
+
+@login_required
+def edit_booking(request, booking_id):
+    """ 
+    View to allow users to update their existing bookings.
+    Ensures users can only edit their own records.
+    """
+    # Fetch the booking, ensuring it belongs to the logged-in user
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        # Pass the existing booking instance to the form
+        form = BookingForm(request.POST, instance=booking)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your booking has been successfully updated.')
+            return redirect('my_account')
+        else:
+            messages.error(request, 'Please correct the errors in the form.')
+    else:
+        # Pre-fill the form with the existing booking data
+        form = BookingForm(instance=booking)
+        
+    context = {
+        'form': form,
+        'booking': booking,
+    }
+    return render(request, 'booking/edit_booking.html', context)

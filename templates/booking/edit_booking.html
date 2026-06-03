@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="overlay"></div>
+
+<div class="container pt-5 pb-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 bg-white p-5 rounded shadow-lg" style="opacity: 0.95;">
+            <h2 class="mb-4 font-weight-bold text-uppercase text-center">Edit Booking</h2>
+            <hr>
+            
+            <p class="lead text-center mb-4">
+                Rescheduling session for: <strong>{{ booking.service.name }}</strong>
+            </p>
+
+            <form method="POST" action="{% url 'edit_booking' booking.id %}">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold text-dark small text-uppercase">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'my_account' %}" class="btn btn-outline-dark rounded-0 px-4 py-2 mr-2">Back to Account</a>
+                    <button type="submit" class="btn btn-dark rounded-0 px-4 py-2 text-uppercase font-weight-bold">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
