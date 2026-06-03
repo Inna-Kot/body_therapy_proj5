@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from services.models import Service
+from .models import Booking
 from .forms import BookingForm
 
 @login_required
@@ -46,3 +47,16 @@ def book_now(request, service_id):
     }
     
     return render(request, 'booking/book_now.html', context)
+
+@login_required
+def my_account(request):
+    """ 
+    Display the user's booking history and profile details.
+    """
+    bookings = request.user.bookings.all()
+    
+    context = {
+        'bookings': bookings,
+    }
+    
+    return render(request, 'booking/my_account.html', context)
