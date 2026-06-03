@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.conf import settings
 
 from services.models import Service
+from booking.models import Booking
 from .models import Order, OrderLineItem
 from .forms import OrderForm
 from bag.contexts import bag_contents
@@ -32,6 +33,7 @@ def checkout(request):
             for item_key, item_data in bag.items():
                 try:
                     service = Service.objects.get(id=item_data['item_id'])
+
                     order_line_item = OrderLineItem(
                         order=order,
                         service=service,
@@ -39,6 +41,17 @@ def checkout(request):
                         time_slot=item_data['time'],
                     )
                     order_line_item.save()
+                    
+                    # Create the actual Booking record for the user profile
+                    if request.user.is_authenticated:
+                        Booking.objects.create(
+                            user=request.user,
+                            service=service,
+                            booking_date=item_data['date'],
+                            time_slot=item_data['time'],
+                            status=1  # 1 = Confirmed (paid)
+                        )
+                   
                 except Service.DoesNotExist:
                     messages.error(request, (
                         "One of the services in your bag wasn't found. "

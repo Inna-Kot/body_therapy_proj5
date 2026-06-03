@@ -53,6 +53,20 @@
         </div>
     </div>
 
+    <div class="row mt-5">
+    <div class="col-12 text-center">
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'my_account' %}" class="btn btn-dark rounded-0 px-5 py-3 text-uppercase font-weight-bold">
+                View My Bookings
+            </a>
+        {% else %}
+            <a href="{% url 'home' %}" class="btn btn-dark rounded-0 px-5 py-3 text-uppercase font-weight-bold">
+                Return to Home
+            </a>
+        {% endif %}
+    </div>
+</div>
+
     <div class="row">
         <div class="col-12 text-center mt-4">
             <a href="{% url 'services' %}" class="btn btn-black rounded-0 btn-lg">
