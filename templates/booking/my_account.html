@@ -43,7 +43,7 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-sm btn-outline-primary mr-1" disabled>Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger" disabled>Cancel</button>
+                                        <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-outline-danger">Cancel</a>
                                     </td>
                                 </tr>
                             {% endfor %}

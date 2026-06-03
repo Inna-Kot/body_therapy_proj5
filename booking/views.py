@@ -60,3 +60,22 @@ def my_account(request):
     }
     
     return render(request, 'booking/my_account.html', context)
+
+@login_required
+def cancel_booking(request, booking_id):
+    """ 
+    View to allow users to cancel their own bookings.
+    Ensures users can only delete their own records.
+    """
+    # Fetch the booking, ensuring it belongs to the logged-in user
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        booking.delete()
+        messages.success(request, 'Your booking has been successfully cancelled.')
+        return redirect('my_account')
+        
+    context = {
+        'booking': booking
+    }
+    return render(request, 'booking/cancel_booking.html', context)
