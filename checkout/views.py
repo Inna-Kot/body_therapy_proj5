@@ -107,36 +107,58 @@ def checkout_success(request, order_number):
     Handle successful payment confirmation.
     Clears the session bag and renders the confirmation template.
     """
-    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
 
+    # Debug info for Render logs
+    print("=== EMAIL SETTINGS DEBUG ===")
+    print("EMAIL_HOST:", settings.EMAIL_HOST)
+    print("EMAIL_PORT:", settings.EMAIL_PORT)
+    print("EMAIL_HOST_USER:", settings.EMAIL_HOST_USER)
+    print("EMAIL_HOST_PASSWORD EXISTS:", bool(settings.EMAIL_HOST_PASSWORD))
+    print("===========================")
+
     # Email confirmation
-    cust_email = order.email
-    subject = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_subject.txt',
-        {'order': order})
-    body = render_to_string(
-        'checkout/confirmation_emails/confirmation_email_body.txt',
-        {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-    
-    send_mail(
-        subject,
-        body,
-        settings.DEFAULT_FROM_EMAIL,
-        [cust_email]
+    try:
+        cust_email = order.email
+
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order}
+        ).strip()
+
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {
+                'order': order,
+                'contact_email': settings.DEFAULT_FROM_EMAIL
+            }
+        )
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email],
+            fail_silently=False,
+        )
+
+        print(f"SUCCESS: Email sent to {cust_email}")
+
+    except Exception as e:
+        print("EMAIL ERROR:", repr(e))
+
+    messages.success(
+        request,
+        f'Order successfully processed! '
+        f'Your order number is {order_number}.'
     )
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
-
-    # Clear the shopping bag from the session
+    # Clear shopping bag
     if 'bag' in request.session:
         del request.session['bag']
 
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
-
-    return render(request, template, context)
+    return render(
+        request,
+        'checkout/checkout_success.html',
+        {'order': order}
+    )

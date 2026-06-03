@@ -163,6 +163,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+EMAIL_TIMEOUT = 10
 
 # Updated Allauth configuration for authentication and signup fields
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
