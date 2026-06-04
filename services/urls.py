@@ -10,6 +10,9 @@ urlpatterns = [
 
     # Route for editing an existing service
     path('edit/<int:service_id>/', views.edit_service, name='edit_service'),
+
+    # Route for deleting a service
+    path('delete/<int:service_id>/', views.delete_service, name='delete_service'),
     
     # Route for individual service details using its primary key
     path('<int:service_id>/', views.service_detail, name='service_detail'),
