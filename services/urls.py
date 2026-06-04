@@ -7,6 +7,9 @@ urlpatterns = [
 
     # Route for adding a new service (only accessible to staff users)
     path('add/', views.add_service, name='add_service'),
+
+    # Route for editing an existing service
+    path('edit/<int:service_id>/', views.edit_service, name='edit_service'),
     
     # Route for individual service details using its primary key
     path('<int:service_id>/', views.service_detail, name='service_detail'),
