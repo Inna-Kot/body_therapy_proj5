@@ -47,6 +47,8 @@ class CollaborationForm(forms.ModelForm):
             self.fields[field].label = False
 
         self.fields['phone_number'].widget.input_type = 'tel'
+        self.fields['phone_number'].widget.attrs['pattern'] = r'^[0-9+\-\s\(\)]+$'
+        self.fields['phone_number'].widget.attrs['title'] = 'Only numbers and standard symbols (+, -, spaces) are allowed.'
         
     def clean_phone_number(self):
         """
