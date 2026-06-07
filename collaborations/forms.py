@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Collaboration
 
 class CollaborationForm(forms.ModelForm):
@@ -44,3 +45,19 @@ class CollaborationForm(forms.ModelForm):
             
             # Removing labels for a modern, minimalist look
             self.fields[field].label = False
+
+        self.fields['phone_number'].widget.input_type = 'tel'
+        
+    def clean_phone_number(self):
+        """
+        Backend validation to ensure the phone number 
+        does not contain letters.
+        """
+        phone_number = self.cleaned_data.get('phone_number')
+        
+        if phone_number:
+            for char in phone_number:
+                if char.isalpha():
+                    raise ValidationError('Phone number cannot contain letters.')
+                    
+        return phone_number
