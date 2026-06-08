@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import CollaborationForm
+from django.core.mail import send_mail
 
 def collaborate(request):
     """
@@ -11,6 +12,13 @@ def collaborate(request):
         form = CollaborationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            subject = 'New Collaboration Request'
+            message = f'You have a new request from {form.cleaned_data["full_name"]}'
+            send_mail(
+                subject,
+                message,
+                'kotkovets.inna@gmail.com', ['kotkovets.inna@gmail.com']
+            )
             messages.success(
                 request, 
                 'Thank you! Your collaboration request has been sent successfully.'
