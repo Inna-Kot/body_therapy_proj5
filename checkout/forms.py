@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Order
 
 class OrderForm(forms.ModelForm):
@@ -31,3 +32,22 @@ class OrderForm(forms.ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
+
+        # Adding 'tel' input type and pattern for frontend validation
+        self.fields['phone_number'].widget.input_type = 'tel'
+        self.fields['phone_number'].widget.attrs['pattern'] = r'^[0-9+\-\s\(\)]+$'
+        self.fields['phone_number'].widget.attrs['title'] = 'Only numbers and standard symbols (+, -, spaces) are allowed.'
+
+    def clean_phone_number(self):
+        """
+        Backend validation to ensure the phone number 
+        does not contain letters.
+        """
+        phone_number = self.cleaned_data.get('phone_number')
+        
+        if phone_number:
+            for char in phone_number:
+                if char.isalpha():
+                    raise ValidationError('Phone number cannot contain letters.')
+                    
+        return phone_number
