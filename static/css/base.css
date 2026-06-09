@@ -133,3 +133,26 @@ html {
     scroll-padding-top: 130px; 
     scroll-behavior: smooth; 
 }
+
+/* Main logo positioning: move to top-left corner */
+.main-logo-link {
+    display: inline-block;
+    padding: 0; /* Remove default Bootstrap padding */
+    margin-top: -15px; /* Pull higher */
+    margin-left: -15px;
+    z-index: 1050; /* Ensure it stays above the header */
+}
+
+/* Main logo styling: circular background and shadow */
+.main-logo-link img {
+    background-color: #a19f9f;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Logo hover effect */
+.main-logo-link img:hover {
+    transform: scale(1.05);
+}
