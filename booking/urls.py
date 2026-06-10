@@ -6,4 +6,5 @@ urlpatterns = [
     path('my_account/', views.my_account, name='my_account'),
     path('cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('edit/<int:booking_id>/', views.edit_booking, name='edit_booking'),
+    path('get-booked-times/', views.get_booked_times, name='get_booked_times'),
 ]

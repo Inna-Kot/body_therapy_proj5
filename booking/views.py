@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -108,3 +109,16 @@ def edit_booking(request, booking_id):
         'booking': booking,
     }
     return render(request, 'booking/edit_booking.html', context)
+
+def get_booked_times(request):
+    """
+    API endpoint that returns a list of booked time slots for a specific date.
+    Used by frontend JavaScript to disable booked options.
+    """
+    date = request.GET.get('date')
+    if date:
+        bookings = Booking.objects.filter(booking_date=date)
+        booked_times = [booking.time_slot for booking in bookings]
+        return JsonResponse({'booked_times': booked_times})
+    
+    return JsonResponse({'booked_times': []})

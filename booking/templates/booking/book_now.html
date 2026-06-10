@@ -64,6 +64,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Find the date input element in the DOM
         const dateInput = document.querySelector('input[type="date"]');
+        const timeSelect = document.getElementById('id_time_slot'); // Target the Django generated ID for the time dropdown
         
         if (dateInput) {
             // 1. Set the minimum date to TOMORROW to prevent same-day or past bookings
@@ -87,8 +88,41 @@
                     e.preventDefault();
                     this.value = ''; // Clear the invalid field input
                     alert("Bookings are only available from Monday to Friday. Weekends are disabled.");
+                    return; // Stop execution if weekend is selected
                 }
             });
+
+            // --- 3. AJAX: Prevent Double Bookings (Disable booked times) ---
+            if (timeSelect) {
+                // Listen for changes in the date picker
+                dateInput.addEventListener('change', function() {
+                    const selectedDate = this.value;
+
+                    // Reset dropdown: enable all options and remove "(Booked)" text
+                    Array.from(timeSelect.options).forEach(option => {
+                        option.disabled = false;
+                        option.text = option.text.replace(' (Booked)', ''); 
+                    });
+
+                    if (selectedDate) {
+                        // Fetch booked times from our Django API
+                        fetch(`/booking/get-booked-times/?date=${selectedDate}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const bookedTimes = data.booked_times;
+
+                                // Disable times that are already booked
+                                Array.from(timeSelect.options).forEach(option => {
+                                    if (bookedTimes.includes(option.value)) {
+                                        option.disabled = true; // Make unselectable
+                                        option.text += ' (Booked)'; // Add visual cue
+                                    }
+                                });
+                            })
+                            .catch(error => console.error('Error fetching booked times:', error));
+                    }
+                });
+            }
         }
     });
 </script>
