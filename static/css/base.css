@@ -1,5 +1,10 @@
+/* =========================
+   1. Base Styles & Typography
+   ========================= */
 html {
     height: 100%;
+    scroll-padding-top: 130px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -11,19 +16,20 @@ body {
 .logo-font {
     text-transform: uppercase;
 }
-
-.main-logo-link {
-    width: fit-content;
+.custom-dropdown {
+    min-width: 300px;
 }
-
 .text-black {
-    color: #000 !important;
+    color: #000;
 }
 
 .border-black {
-    border: 1px solid black !important;
+    border: 1px solid black;
 }
 
+/* =========================
+   2. Buttons
+   ========================= */
 .shop-now-button {
     background: #222;
     color: white;
@@ -37,107 +43,45 @@ body {
     color: white;
 }
 
-
+/* =========================
+   3. Header & Navigation
+   ========================= */
 .fixed-top {
-    position: fixed !important; 
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important; 
+    position: fixed;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important;
 }
 
 #topnav {
-    background: transparent !important; 
+    background: transparent;
     margin-top: 5px;
 }
 
-.hero-image-container {
-    height: 100vh; 
-    background-size: cover;
-    background-position: center;
-    margin-top: 0; 
-    padding-top: 0;
-}
-.hero-image-container h1 {
-    text-shadow: 3px 3px 10px rgba(0, 33, 71, 0.8), 
-                 -1px -1px 2px rgba(4, 99, 7, 0.5);
-}
-.hero-image-container p.lead {
-    font-weight: 500;
-    text-shadow: 2px 2px 5px rgba(0, 33, 71, 0.9);
-    background: rgba(0, 0, 0, 0.1);
-    padding: 5px 15px; 
+/* Topnav Icon Colors and Hover Fix */
+#topnav .nav-link {
+    color: #2b4f3a;
+    transition: color 0.3s ease;
 }
 
+#topnav .nav-link:hover,
+#topnav .nav-link:focus {
+    color: #2b4f3a !important; /* Keep static color on hover */
+    text-decoration: none;
+}
+
+/* Input styling inside topnav */
 body header #topnav .input-group input.form-control {
-    background-color: rgba(255, 255, 255, 0.3) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-#delivery-banner {
-    background-color: #000 !important; 
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    z-index: 1020;
-}
-
-.bg-black {
-    background-color: #000 !important;
-}
-#delivery-banner h4 {
-    font-size: 1.75rem;
-    font-weight: 400;
-    letter-spacing: 1.5px;
-    color: white !important;
-    margin: 0;
-}
-@media (min-width: 992px) {
-    .main-logo-link {
-        /* Remove element from normal flow so header height shrinks */
-        position: absolute; 
-        /* Position slightly below the top delivery banner. Adjust if banner height changes */
-        top: 35px; 
-        /* Add spacing from the left edge of the screen */
-        left: 5%; 
-        /* Ensure the logo stays on top of background images and other content */
-        z-index: 1060; 
-    }
-    .main-logo-link img {
-        /* Control the size of the overlapping logo */
-        max-height: 200px; 
-        width: auto;
-    }
-}
-.nav-link {
-    transition: all .3s ease;
-}
-
-#main-nav .nav-link {
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: #1b4332;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,.35);
-}
-
-/* * Hover effect for navigation links */
-#main-nav .nav-link:hover {
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1); 
-    text-decoration: underline;
-}
-
-html {
-    scroll-padding-top: 130px; 
-    scroll-behavior: smooth; 
-}
-
-/* Main logo positioning: move to top-left corner */
+/* Main Logo */
 .main-logo-link {
     display: inline-block;
+    width: fit-content;
     padding: 0;
     z-index: 1050;
 }
 
-/* Main logo styling: circular background and shadow */
 .main-logo-link img {
     background-color: #a19f9f;
     border-radius: 50%;
@@ -146,17 +90,146 @@ html {
     transition: transform 0.3s ease;
 }
 
-/* Logo hover effect */
 .main-logo-link img:hover {
     transform: scale(1.05);
 }
-/* 1. Adaptive layout for 1300px: Allow banner to grow naturally and use flexible margins */
+
+/* Main Nav Menu */
+.custom-navbar {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
+    padding: 5px 30px;
+}
+
+#main-nav .nav-link {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #1b4332;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(24, 112, 33, 0.35);
+    transition: color 0.3s ease;
+}
+
+#main-nav .nav-link:hover {
+    color: #c6c429;
+    text-decoration: underline;
+}
+
 /* =========================
-   Large screens
+   4. Delivery Banner
+   ========================= */
+#delivery-banner {
+    background-color: #000;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1020;
+}
+
+.bg-black {
+    background-color: #000;
+}
+
+#delivery-banner p {
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: white;
+    margin: 0;
+}
+
+/* =========================
+   5. Hero Section
+   ========================= */
+.hero-image-container {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.hero-image-container h1 {
+    text-shadow: 3px 3px 10px rgba(0, 33, 71, 0.8),
+                 -1px -1px 2px rgba(4, 99, 7, 0.5);
+}
+
+.hero-image-container p.lead {
+    font-weight: 500;
+    text-shadow: 2px 2px 5px rgba(0, 33, 71, 0.9);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px 15px;
+}
+
+/* =========================
+   6. Footer
+   ========================= */
+.footer {
+    background-color: #1b4332;
+    color: white;
+    margin-top: 4rem;
+}
+
+.footer h2 {
+    color: white;
+    font-weight: 600;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.6rem;
+    margin: 0 12px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.footer small {
+    opacity: 0.8;
+}
+
+/* =========================
+   7. Media Queries
    ========================= */
 
-@media (max-width: 1200px) {
+/* Desktop Specific Constraints */
+@media (min-width: 992px) {
+    .main-logo-link {
+        position: absolute;
+        top: 35px;
+        left: 5%;
+        z-index: 1060;
+    }
 
+    .main-logo-link img {
+        max-height: 200px;
+        width: auto;
+    }
+}
+
+/* Large screens adapting */
+@media (max-width: 1200px) {
     .main-logo-link img {
         max-height: 160px;
     }
@@ -165,36 +238,35 @@ html {
         font-size: 1.5rem;
     }
 
-    #delivery-banner h4 {
+    #delivery-banner p {
         font-size: 1.4rem;
     }
 }
 
-/* =========================
-   Tablet
-   ========================= */
-
+/* Tablet */
 @media (max-width: 991.98px) {
-
     .fixed-top {
-        position: relative !important;
+        position: relative;
     }
 
-    #delivery-banner h4 {
+    #delivery-banner p {
         font-size: 1.1rem;
         padding: 0 10px;
     }
 
-    .navbar {
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
+   .custom-navbar {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
     }
 
     .navbar-toggler {
-        border: none !important;
-        outline: none !important;
+        border: none;
+        outline: none;
     }
+    .navbar-toggler:focus {
+    box-shadow: none;
+}
 
     .message-container {
         right: 10px !important;
@@ -204,14 +276,10 @@ html {
     }
 }
 
-/* =========================
-   Mobile
-   ========================= */
-
+/* Mobile */
 @media (max-width: 767.98px) {
-
-    #delivery-banner h4 {
-        font-size: .9rem;
+    #delivery-banner p {
+        font-size: 0.9rem;
         line-height: 1.4;
     }
 

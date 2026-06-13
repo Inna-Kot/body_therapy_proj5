@@ -8,6 +8,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Professional sports massage and injury recovery services in Dublin.">
+        <meta name="keywords" content="sports massage, injury recovery, deep tissue massage, Dublin">
     {% endblock %}
 
     {% block extrameta %}
@@ -98,7 +100,7 @@
         </div>
 
         <div class="row justify-content-center pb-2 mt-2 m-0">
-            <nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 30px; padding: 5px 30px;">
+            <nav class="navbar navbar-expand-lg navbar-light custom-navbar" aria-label="Main navigation">
                 <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -109,7 +111,9 @@
     </header>
     <div id="delivery-banner" class="row text-center m-0"> 
         <div class="col bg-black text-white py-1">
-             <h4 class="logo-font my-1 text-uppercase">Professional sports massage & injury recovery sessions</h4>
+             <p class="logo-font my-1 text-uppercase mb-0">
+    Professional sports massage & injury recovery sessions
+            </p>
     </div>
 
 </div>
@@ -127,11 +131,65 @@
         {% endif %}
     </div>
 
+<main>
     {% block page_header %}
     {% endblock %}
 
     {% block content %}
     {% endblock %}
+</main>
+
+<footer class="footer mt-5">
+    <div class="container text-center py-4">
+
+        <h2 class="h5 mb-3">
+            Body Therapy
+        </h2>
+
+        <p class="mb-4">
+            Professional sports massage and injury recovery services.
+        </p>
+
+        <div class="footer-links mb-4">
+            <a href="{% url 'home' %}">Home</a>
+
+            <span>|</span>
+
+            <a href="#services">Services</a>
+
+            {% if request.user.is_authenticated %}
+                <span>|</span>
+
+                <a href="{% url 'my_account' %}">
+                    My Account
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="social-links mb-4">
+
+            <a href="https://www.facebook.com/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Visit our Facebook page">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="https://www.instagram.com/vitalii_massage_tralee?utm_source=qr&igsh=b2drZWwzemlsYzV3"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Visit our Instagram page">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+        </div>
+
+        <small>
+            © {% now "Y" %} Body Therapy. All Rights Reserved.
+        </small>
+
+    </div>
+</footer>
 
     {% block postloadjs %}
     <script>

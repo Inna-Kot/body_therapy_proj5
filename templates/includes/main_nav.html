@@ -2,11 +2,18 @@
     <ul class="navbar-nav mx-auto text-uppercase">
         
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-white dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link dropdown-toggle" 
+            href="#" 
+            id="categoriesDropdown" 
+            role="button" 
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+            aria-label="Service categories">
                 Categories
             </a>
             
-            <div class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="categoriesDropdown" style="min-width: 300px;">
+            <div class="dropdown-menu border-0 shadow-lg p-3" aria-labelledby="categoriesDropdown">
                 
                 <h6 class="dropdown-header font-weight-bold text-navy px-3">Sports Massage</h6>
                 <a href="{% url 'service_detail' 1 %}" class="dropdown-item py-2">Deep Tissue and Sport Massage</a>
@@ -33,7 +40,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white font-weight-bold" href="{% url 'collaborate' %}">
+            <a class="nav-link font-weight-bold" href="{% url 'collaborate' %}">
                 Collaborate
             </a>
         </li>
