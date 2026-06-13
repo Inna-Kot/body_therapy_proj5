@@ -39,66 +39,67 @@
     <title>Body Therapy {% block extratitle %}{% endblock %}</title>
   </head>
   <body>
-        <header class="container-fluid fixed-top p-0">
-        <div id="topnav" class="row d-none d-lg-flex align-items-start pt-3">
-            <div class="col-12 col-lg-4 py-1 py-lg-0 text-center text-lg-left">
+        <header class="container-fluid fixed-top p-0 bg-white shadow-sm">
+        <div id="topnav" class="row align-items-center pt-2 m-0">
+            <div class="col-12 col-lg-4 text-center text-lg-left d-none d-lg-block"> ">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
                     <img src="{% static 'images/logo.png' %}" alt="Body Therapy Logo" class="img-fluid">
                 </a>
             </div>
 
-           <div class="col-12 col-lg-4 py-1 py-lg-0 mt-4"></div> 
+            <div class="col-12 col-lg-4 d-none d-lg-block"></div> 
 
-            <div class="col-12 col-lg-4 text-right py-1 py-lg-0">
-               <ul class="list-inline list-unstyled text-center text-lg-right mt-4 mb-0">
-                <li class="list-inline-item">
-    <a class="text-dark font-weight-bold nav-link" href="{% url 'home' %}">
-        <div class="text-center">
-            <div><i class="fas fa-home fa-lg" style="color: #212529;"></i></div>
-            <p class="my-0">Home</p>
-        </div>
-    </a>
-</li>
-    <li class="list-inline-item dropdown">
-        <a class="text-dark font-weight-bold nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="text-center">
-                <div><i class="fas fa-user fa-lg" style="color: #212529;"></i></div>
-                <p class="my-0">My Account</p>
+            <div class="col-12 col-lg-4 text-center text-lg-right mt-2 mt-lg-0">
+                <ul class="list-inline list-unstyled mb-0">
+                    <li class="list-inline-item mx-2 mx-lg-3">
+                        <a class="text-dark font-weight-bold nav-link p-0" href="{% url 'home' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-home fa-lg" style="color: #2b4f3a;"></i></div>
+                                <p class="my-0 small">Home</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-inline-item dropdown mx-2 mx-lg-3">
+                        <a class="text-dark font-weight-bold nav-link p-0" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="fas fa-user fa-lg" style="color: #2b4f3a;"></i></div>
+                                <p class="my-0 small">Account</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="user-options">
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <a href="{% url 'add_service' %}" class="dropdown-item">Service Management</a>
+                                {% endif %}
+                                <a href="{% url 'my_account' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                            {% else %}
+                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="list-inline-item mx-2 mx-lg-0">
+                        <a class="{% if total %}text-info font-weight-bold{% else %}text-dark font-weight-bold{% endif %} nav-link p-0" href="{% url 'view_bag' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-shopping-bag fa-lg" style="color: #2b4f3a;"></i></div>
+                                <p class="my-0 small">
+                                    {% if total %}
+                                        €{{ total|floatformat:2 }}
+                                    {% else %}
+                                        €0.00
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </a>
-        <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="user-options">
-            {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                    <a href="{% url 'add_service' %}" class="dropdown-item">Service Management</a>
-                {% endif %}
-                <a href="{% url 'my_account' %}" class="dropdown-item">My Profile</a>
-                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-            {% else %}
-                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-            {% endif %}
         </div>
-    </li>
-    <li class="list-inline-item">
-        <a class="{% if total %}text-info font-weight-bold{% else %}text-dark font-weight-bold{% endif %} nav-link" href="{% url 'view_bag' %}">
-            <div class="text-center">
-                <div><i class="fas fa-shopping-bag fa-lg" style="color: #212529;"></i></div>
-                <p class="my-0">
-                    {% if total %}
-                        €{{ total|floatformat:2 }}
-                    {% else %}
-                        €0.00
-                    {% endif %}
-                </p>
-            </div>
-        </a>
-    </li>
-</ul>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <nav class="navbar navbar-expand-lg navbar-light" style="margin-top: -35px; background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 30px; padding: 5px 30px;">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <div class="row justify-content-center pb-2 mt-2 m-0">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 30px; padding: 5px 30px;">
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 

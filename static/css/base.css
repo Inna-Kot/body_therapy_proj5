@@ -156,3 +156,34 @@ html {
 .main-logo-link img:hover {
     transform: scale(1.05);
 }
+/* 1. Adaptive layout for 1300px: Allow banner to grow naturally and use flexible margins */
+@media (max-width: 1300px) {
+    #delivery-banner {
+        height: auto !important;
+        padding: 8px 0 !important;
+    }
+
+    #topnav .text-lg-right {
+        margin-top: 10px !important; 
+        margin-bottom: 5px !important;
+    }
+
+    .navbar {
+        margin-top: 5px !important;
+        position: static !important; /* Prevents overlapping */
+    }
+}
+
+/* 2. Mobile layout for 768px: Make the hamburger menu clean and minimalist */
+@media (max-width: 768px) {
+    .navbar {
+        background: transparent !important; /* Removes the huge semi-transparent box */
+        box-shadow: none !important; /* Removes the shadow */
+        padding: 0 !important;
+    }
+
+    .navbar-toggler {
+        border: none !important; /* Removes the ugly border around the button */
+        outline: none !important;
+    }
+}
