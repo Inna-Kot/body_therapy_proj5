@@ -44,6 +44,10 @@ class BrevoAPIEmailBackend(BaseEmailBackend):
             "textContent": message.body,
         }
 
+        html_content = self._get_html_content(message)
+        if html_content:
+            payload["htmlContent"] = html_content
+
         try:
             response = requests.post(
                 self.API_URL, json=payload, headers=headers, timeout=10
@@ -54,3 +58,14 @@ class BrevoAPIEmailBackend(BaseEmailBackend):
             if not self.fail_silently:
                 raise
             return False
+
+    def _get_html_content(self, message):
+        """
+        Extract the HTML alternative from an EmailMultiAlternatives
+        message, if present.
+        """
+        alternatives = getattr(message, "alternatives", None) or []
+        for content, mimetype in alternatives:
+            if mimetype == "text/html":
+                return content
+        return None
