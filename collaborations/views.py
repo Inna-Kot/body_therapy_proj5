@@ -13,7 +13,17 @@ def collaborate(request):
         if form.is_valid():
             form.save()
             subject = 'New Collaboration Request'
-            message = f'You have a new request from {form.cleaned_data["full_name"]}'
+            data = form.cleaned_data
+            message = (
+                f'New collaboration request from {data["full_name"]}\n\n'
+                f'Email: {data["email"]}\n'
+                f'Phone: {data["phone_number"]}\n'
+                f'Company: {data["company"]}\n'
+                f'Website: {data["website"]}\n'
+                f'Type: {data["collaboration_type"]}\n'
+                f'Subject: {data["subject"]}\n\n'
+                f'Message:\n{data["message"]}'
+            )
             send_mail(
                 subject,
                 message,
