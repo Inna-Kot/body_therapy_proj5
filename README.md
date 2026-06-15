@@ -415,3 +415,21 @@ The signup page (`/accounts/signup/`) produces one W3C validation error: an unor
 #### `<h6>` Dropdown Headers in Categories Menu
 
 The Categories dropdown in the main navigation uses `<h6>` elements for category group headings (e.g. "Sports Massage", "Spa & Wellness"). The W3C validator raises a warning that the document has no heading with a computed level of 1, partly due to these `<h6>` elements appearing without a preceding `<h1>`-`<h5>` in that section of the document. This follows common Bootstrap dropdown conventions and does not affect functionality or screen reader navigation, but is noted here as a minor semantic deviation.
+## Credits
+
+### Code & Tutorials
+- [Code Institute](https://codeinstitute.net/) — Boutique Ado walkthrough project provided the foundation for the e-commerce structure.
+- [Django Documentation](https://docs.djangoproject.com/) — used throughout development for models, views, and forms reference.
+- [Stripe Documentation](https://stripe.com/docs) — for payment integration implementation.
+- [django-allauth Documentation](https://django-allauth.readthedocs.io/) — for authentication setup.
+
+### Tools
+- [W3C Validator](https://validator.w3.org/) — HTML validation.
+- [Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) — CSS validation.
+- [Cloudinary](https://cloudinary.com/) — cloud hosting for all media files.
+- [Brevo](https://www.brevo.com/) — transactional email delivery via HTTP API.
+- [Neon.tech](https://neon.tech/) — PostgreSQL database hosting.
+- [Render](https://render.com/) — application hosting.
+
+### Acknowledgements
+- My mentor at Code Institute for guidance and support throughout the project.
