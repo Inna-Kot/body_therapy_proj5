@@ -12,6 +12,16 @@ The app is developed by [Inna Kot](https://github.com/Inna-Kot).
 
 ---
 
+## E-Commerce Business Model
+
+**Body Therapy** operates on a **B2C (Business-to-Consumer)** model, offering direct online booking and payment for professional sports massage and injury recovery sessions.
+
+- **Revenue model:** Single, one-time payments per session — no subscription required.
+- **Payment processing:** Stripe handles all transactions securely in EUR.
+- **Products/Services:** Therapy sessions are the core offering, organised by category (Sports Massage, Spa & Wellness, Injury Recovery, Rehabilitation).
+- **Target customers:** Athletes, active individuals, and patients recovering from injury who need professional, accessible therapy booking online.
+- **Value proposition:** Clients can browse services, select a date/time slot, and pay — all in one seamless flow. The therapist gains a digital storefront and automated schedule management without requiring a third-party booking platform.
+
 ## User Experience Design (UX)
 
 ### Strategy & Target Audience
@@ -149,6 +159,18 @@ Stores collaboration requests submitted by potential partners or organisations, 
 * **Stripe** - handles secure online payment processing.
 * **Cloudinary** - cloud storage for static and media files (images).
 * **Brevo** - sends transactional emails (signup verification, collaboration requests) via its HTTP API.
+
+## SEO
+
+The following SEO best practices are implemented throughout the application:
+
+- **Meta tags:** Each page includes descriptive `<meta name="description">` and `<meta name="keywords">` tags relevant to sports massage and injury therapy services.
+- **Site title:** A consistent site title is defined in the base template and reflected across all pages.
+- **`sitemap.xml`:** A sitemap is included to help search engine bots discover and index all pages.
+- **`robots.txt`:** A `robots.txt` file is included to guide crawler access.
+- **404 page:** A custom 404 error page redirects users back to the home page without requiring browser navigation.
+- **Link attributes:** External links use `rel="noopener noreferrer"`. No paid or sponsored links are present on the site.
+- **Content:** All text content is original and purpose-specific — no Lorem Ipsum placeholder text is used anywhere on the site.
 
 ### Deployment & Version Control
 * **Render** - hosting platform for the deployed application.
