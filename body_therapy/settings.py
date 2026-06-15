@@ -155,7 +155,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-# Email Settings for Gmail SMTP (Configured for production deployment)
+# Email settings - using Brevo HTTP API (see README Bugs & Fixes for details)
 EMAIL_BACKEND = 'body_therapy.email_backends.BrevoAPIEmailBackend'
 BREVO_API_KEY = os.environ.get('BREVO_API_KEY')
 DEFAULT_FROM_EMAIL = os.environ.get('BREVO_DEFAULT_FROM_EMAIL', 'kotkovets.inna@gmail.com')
@@ -166,6 +166,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Stripe Keys from env.py
 STRIPE_CURRENCY = 'eur'
