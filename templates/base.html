@@ -68,7 +68,7 @@
                                 <p class="my-0 small">Account</p>
                             </div>
                         </a>
-                        <div class="dropdown-menu border-0 shadow-sm" aria-labelledby="user-options">
+                        <div class="dropdown-menu border-0 shadow-sm" role="menu" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
                                     <a href="{% url 'add_service' %}" class="dropdown-item">Service Management</a>

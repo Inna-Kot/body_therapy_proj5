@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
+{% block extracss %}
+{{ block.super }}
 <style>
        .hover-image {
         transition: all 0.3s ease-in-out;

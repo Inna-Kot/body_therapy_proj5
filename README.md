@@ -299,3 +299,4 @@ Used Brevo's transactional email logs (delivery status, "Clicked links" tracking
 - Signup email verification works correctly on Render, including clickable links on Outlook
 - Collaboration request emails work on Render and include the full form submission details (contact info, collaboration type, message)
 - Solution is free, persistent, and independent of hosting tier
+
