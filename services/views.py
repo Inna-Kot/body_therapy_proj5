@@ -1,28 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import Service, Category
+from .models import Service
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ServiceForm
-
-def all_services(request):
-    """ A view to show all services, including category filtering """
-    
-    services = Service.objects.all()
-    categories = None
-
-    if request.GET:
-        if 'category' in request.GET:
-            categories = request.GET['category'].split(',')
-            services = services.filter(category__name__in=categories)
-            categories = Category.objects.filter(name__in=categories)
-
-    context = {
-        'services': services,
-        'current_categories': categories,
-    }
-
-    return render(request, 'services/services.html', context)
 
 
 def service_detail(request, service_id):
@@ -100,4 +81,4 @@ def delete_service(request, service_id):
     service.delete()
     messages.success(request, 'Service deleted!')
     
-    return redirect(reverse('services'))
+    return redirect(reverse('home'))
