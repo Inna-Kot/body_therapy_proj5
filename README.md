@@ -47,8 +47,6 @@ Developed for a professional private sports massage practice, the app focuses on
 #### **Feedback & Marketing**
 | Issue ID | User Story | Priority |
 |----------|------------|----------|
-| [#11](https://github.com/Inna-Kot/body_therapy_proj5/issues/11)| As a **Registered User** I can **leave a review for a therapy session I attended** so that I can share my experience with others. | SHOULD HAVE |
-| [#12](https://github.com/Inna-Kot/body_therapy_proj5/issues/12)| As a **Registered User** I can **edit or delete my own review** so that I can correct mistakes or remove my feedback. | SHOULD HAVE |
 | [#13](https://github.com/Inna-Kot/body_therapy_proj5/issues/13)| As a **Site Owner** I can **implement SEO best practices like meta tags, sitemap, and robots.txt** so that search engines can index my site and potential clients can find me. | MUST HAVE |
 | [#14](https://github.com/Inna-Kot/body_therapy_proj5/issues/14)| As a **Site Visitor** I can **subscribe to the newsletter and follow social media links** so that I can stay updated on new therapy sessions and health tips. | MUST HAVE |
 
@@ -58,6 +56,8 @@ Developed for a professional private sports massage practice, the app focuses on
 | [#4](https://github.com/Inna-Kot/body_therapy_proj5/issues/4) | As a **Site Visitor** I can log in using my Google or Facebook account. | FUTURE |
 | [#15](https://github.com/Inna-Kot/body_therapy_proj5/issues/15)| As a **Client** I want to receive an automated SMS/email reminder 24 hours before my appointment. | FUTURE |
 | [#16](https://github.com/Inna-Kot/body_therapy_proj5/issues/16)| As a **Regular Client** I want to purchase a package of 5 therapy sessions at a discounted rate. | FUTURE |
+| [#11](https://github.com/Inna-Kot/body_therapy_proj5/issues/11)| As a **Registered User** I can **leave a review for a therapy session I attended** so that I can share my experience with others. | FUTURE |
+| [#12](https://github.com/Inna-Kot/body_therapy_proj5/issues/12)| As a **Registered User** I can **edit or delete my own review** so that I can correct mistakes or remove my feedback. | FUTURE |
 
 ---
 
@@ -300,3 +300,56 @@ Used Brevo's transactional email logs (delivery status, "Clicked links" tracking
 - Collaboration request emails work on Render and include the full form submission details (contact info, collaboration type, message)
 - Solution is free, persistent, and independent of hosting tier
 
+## Testing
+
+Manual testing was carried out throughout development to verify functionality, usability, responsiveness, and data management across the application.
+
+### Functional Testing
+
+| Feature | Test Performed | Expected Result | Actual Result |
+|---|---|---|---|
+| User Registration | Sign up with a new email address | Account created, verification email sent | Pass |
+| Email Verification | Click verification link in email (Gmail and Outlook) | Email confirmed, account activated | Pass |
+| Login / Logout | Log in with valid credentials, then log out | User is authenticated/de-authenticated, navigation reflects login state | Pass |
+| Service - Create | Add a new service via the admin-only "Add Service" form | New service saved and immediately visible on the home page | Pass |
+| Service - Read | View a service's detail page | Correct service details displayed (description, price, preparation, contraindications) | Pass |
+| Service - Update | Edit an existing service and save | Changes immediately reflected on the home page and detail page | Pass |
+| Service - Delete | Delete a service (with confirmation dialog) | Confirmation prompt shown; on confirm, service removed from home page without errors | Pass |
+| Non-admin access to Service Management | Attempt to access Add/Edit/Delete URLs as a non-superuser | User redirected to home page with an error message | Pass |
+| Booking | Click "Book Now" on a service, select a valid date/time | Booking form loads with correct service details, date/time can be selected | Pass |
+| Booking validation | Attempt to book a past date or a weekend date | Validation error displayed, booking is rejected | Pass |
+| Stripe Checkout | Complete checkout using Stripe test card (4242 4242 4242 4242) | Payment processed in Stripe test mode, success message displayed to user | Pass |
+| Collaboration Form | Submit the collaboration request form | Form data saved, confirmation email sent with all submitted details | Pass |
+| 404 Page | Navigate to a non-existent URL | Custom 404 page displayed with a link back to the home page | Pass |
+
+### Responsiveness Testing
+
+Tested using Chrome DevTools device toolbar at 375px (Mobile), 768px (Tablet), and 1440px (Desktop), as well as on a physical iPhone device.
+
+| Screen Size | Result |
+|---|---|
+| Desktop (1440px) | Layout displays correctly; navigation, hero section, and service listings are well-spaced and readable |
+| Tablet (768px) | Known issue - see below |
+| Mobile (375px) | Known issue - see below |
+
+### Code Validation
+
+- **HTML**: Validated using the [W3C Nu Html Checker](https://validator.w3.org/nu/). The home page, service detail pages, and login page pass with no errors. One known issue remains on the signup page (see below).
+- **CSS**: Validated using the [Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) - no errors found.
+- **Python**: Code follows PEP8 styling conventions (checked with flake8).
+
+### Known Issues
+
+#### Header/Hero Overlap on Mobile and Tablet
+
+On screen widths below 992px, the fixed-position header (navigation icons, hamburger menu) overlaps with the hero section heading ("The path to recovery starts here.") on initial page load. This is caused by the `.hero-image-container` using `height: 100vh` combined with the header's `position: fixed` behaviour switching to `position: relative` only above 992px (see `@media (max-width: 991.98px)` in `static/css/base.css`).
+
+This does not affect functionality - all navigation links and buttons remain clickable - but it is a visual issue affecting the information hierarchy on smaller screens. This has been identified as a priority fix for a future iteration, by adjusting the hero section's top padding/margin within the relevant media query.
+
+#### `<ul>` Inside `<small>` on Signup Page
+
+The signup page (`/accounts/signup/`) produces one W3C validation error: an unordered list (password requirements) is rendered inside a `<small>` element by django-allauth's crispy-forms integration. This is generated by a third-party template and does not affect functionality or accessibility - password requirements are still announced to assistive technology. A full fix would require overriding allauth's internal field templates, which was deprioritised given the scope of this submission.
+
+#### `<h6>` Dropdown Headers in Categories Menu
+
+The Categories dropdown in the main navigation uses `<h6>` elements for category group headings (e.g. "Sports Massage", "Spa & Wellness"). The W3C validator raises a warning that the document has no heading with a computed level of 1, partly due to these `<h6>` elements appearing without a preceding `<h1>`-`<h5>` in that section of the document. This follows common Bootstrap dropdown conventions and does not affect functionality or screen reader navigation, but is noted here as a minor semantic deviation.
