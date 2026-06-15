@@ -398,6 +398,7 @@ Tested using Chrome DevTools device toolbar at 375px (Mobile), 768px (Tablet), a
 - **HTML**: Validated using the [W3C Nu Html Checker](https://validator.w3.org/nu/). The home page, service detail pages, and login page pass with no errors. One known issue remains on the signup page (see below).
 - **CSS**: Validated using the [Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) - no errors found.
 - **Python**: Code follows PEP8 styling conventions (checked with flake8).
+- **JavaScript**: No custom JavaScript files were written for this project. Stripe.js is loaded directly from the official Stripe CDN.
 
 ### Known Issues
 
