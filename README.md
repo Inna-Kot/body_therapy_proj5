@@ -90,32 +90,43 @@ The following diagram illustrates the database schema and the relationships betw
 
 ### Data Models
 
-#### **User & Profile**
-* **User Model (Standard Django):** Used for authentication and basic account information.
-* **UserProfile Model:** Extends the User model to store therapist-specific data or client contact details and default billing information.
+#### **Category** (`services` app)
+Used to organise treatments into logical groups (e.g. Sports Massage, Spa & Wellness, Injury Recovery). Each category has a `name` and an optional `friendly_name` for display purposes.
 
-#### **Category & Service**
-* **Category Model:** Used to organize treatments into logical groups (e.g., Sports Massage, Rehabilitation, Gift Certificates).
-* **Service Model:** Stores detailed information about each treatment, including pricing, duration (in minutes), and associated imagery.
+#### **Service** (`services` app)
+Stores detailed information about each treatment offered, including:
+- `name`, `description`, `price`, `duration_minutes`, and `image`
+- Therapy-specific fields: `preparation` (pre-session guidance) and `contraindications` (medical warnings)
+- A `slug` field, automatically generated from the service name
+- An optional `category` foreign key linking to `Category`
 
-#### **E-commerce & Checkout (Transactional)**
-* **Order Model:** Handles the financial transaction details, storing customer billing info, total costs, and the unique Stripe payment intent ID.
-* **OrderLineItem Model:** Acts as a junction holding the specific services purchased within a single order, storing the historical price and selected date/time of the booking at the moment of purchase.
+#### **Booking** (`booking` app)
+The core of the appointment system. Records the date and time slot a registered user has booked for a specific service.
+- Linked to both `User` (Django's built-in auth model) and `Service`
+- `status` field tracks the booking lifecycle: Pending Payment, Confirmed, Completed, Cancelled
+- `stripe_pid` stores the related Stripe payment intent ID
+- Validation logic (`clean()`) prevents bookings on past dates or weekends
+- A `unique_together` constraint on `booking_date`, `time_slot`, and `service` prevents double-booking the same slot
 
-#### **Booking (Scheduling)**
-* **Booking Model:** The core of the appointment system. It records the specific date and time a User schedules a Service, effectively turning an `OrderLineItem` into a calendar event. It includes status tracking (e.g., Confirmed, Cancelled).
+#### **Order** (`checkout` app)
+Stores order and customer billing information for a completed checkout, including a unique, auto-generated `order_number`, contact details, and running totals (`order_total`, `grand_total`) calculated from its line items.
 
-#### **User Interaction & Social**
-* **Review Model:** Enables registered users to provide feedback and ratings for services they have attended, providing essential social proof for the practice.
-* **Wishlist Model:** Allows clients to save sessions they are interested in for future booking.
+#### **OrderLineItem** (`checkout` app)
+Represents a single booked service within an order. Stores the `service`, `quantity`, `booking_date`, `time_slot`, and the `lineitem_total` (calculated automatically from the service price at the time of purchase).
+
+#### **Collaboration** (`collaborations` app)
+Stores collaboration requests submitted by potential partners or organisations, including contact details, the type of collaboration requested (guest blog, workshop, partnership, etc.), a message, an optional file attachment, and a status field for tracking the request (New, Under Review, Accepted, Declined).
 
 ### Relationships Summary
-* **One-to-One:** * `User` is linked to a unique `UserProfile`.
-* **One-to-Many:** * `Category` contains multiple `Services`.
-  * `User` can have multiple `Bookings`, `Reviews`, `Wishlists`, and `Orders`.
-  * `Service` can be associated with multiple `Bookings`, `Reviews`, and `OrderLineItems`.
-  * `Order` contains multiple `OrderLineItems`.
-* **Many-to-Many:** * `User` and `Service` are linked via the `Wishlist` table (depending on implementation, this acts as a junction).
+
+* **One-to-Many**
+  - `Category` can have multiple `Service` records.
+  - `Service` can have multiple `Booking` and `OrderLineItem` records.
+  - `User` can have multiple `Booking` records.
+  - `Order` contains multiple `OrderLineItem` records.
+
+* **Standalone**
+  - `Collaboration` is a standalone model used to capture collaboration enquiries via a public form; it is not linked to other models.
 
 ## Technologies Used
 
