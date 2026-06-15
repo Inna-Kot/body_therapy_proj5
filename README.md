@@ -127,7 +127,121 @@ The following diagram illustrates the database schema and the relationships betw
 * **Deployment:** Render.
 * **Version Control:** Git & GitHub.
 
-## Bugs and Fixes
+## Deployment
+
+### Local Development Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Inna-Kot/body_therapy_proj5.git
+   cd body_therapy_proj5
+   ```
+
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/Scripts/activate  # Windows (Git Bash)
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Create an `env.py` file in the project root (this file is included in `.gitignore` and must never be committed) with the following environment variables:
+   ```python
+   import os
+
+   os.environ["DEVELOPMENT"] = "True"
+   os.environ["SECRET_KEY"] = "your-secret-key"
+   os.environ["DATABASE_URL"] = "your-postgresql-database-url"
+   os.environ["CLOUDINARY_URL"] = "your-cloudinary-url"
+   os.environ["STRIPE_PUBLIC_KEY"] = "your-stripe-public-key"
+   os.environ["STRIPE_SECRET_KEY"] = "your-stripe-secret-key"
+   os.environ["STRIPE_CURRENCY"] = "eur"
+   os.environ["BREVO_API_KEY"] = "your-brevo-api-key"
+   ```
+
+5. Apply database migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. Create a superuser account (for admin access):
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+7. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+8. Visit `http://127.0.0.1:8000/` in your browser.
+
+---
+
+### Database Setup (PostgreSQL via Neon.tech)
+
+This project uses PostgreSQL, hosted on [Neon.tech](https://neon.tech), as its production database.
+
+1. Create a free account at [Neon.tech](https://neon.tech).
+2. Create a new project and database.
+3. Copy the provided connection string (in the format `postgresql://user:password@host/dbname`).
+4. Add this connection string as the `DATABASE_URL` environment variable, both locally (in `env.py`) and on Render (see below).
+5. Run `python manage.py migrate` to create all required tables in the new database.
+
+---
+
+### Deployment to Render
+
+This project is deployed on [Render](https://render.com) as a Web Service.
+
+1. Create a new **Web Service** on Render and connect it to the GitHub repository.
+
+2. Set the following configuration:
+   - **Build Command:**
+     ```
+     pip install -r requirements.txt
+     ```
+   - **Start Command:**
+     ```
+     gunicorn body_therapy.wsgi
+     ```
+
+3. Add the following environment variables in the Render dashboard (Settings → Environment):
+
+   | Variable | Description |
+   |----------|-------------|
+   | `SECRET_KEY` | Django secret key |
+   | `DATABASE_URL` | PostgreSQL connection string (Neon.tech) |
+   | `CLOUDINARY_URL` | Cloudinary API URL for static and media file storage |
+   | `STRIPE_PUBLIC_KEY` | Stripe publishable key |
+   | `STRIPE_SECRET_KEY` | Stripe secret key |
+   | `STRIPE_CURRENCY` | Currency code used for Stripe payments (e.g. `eur`) |
+   | `BREVO_API_KEY` | Brevo API key, used for sending transactional emails via the Brevo HTTP API (see [Bugs & Fixes](#bugs--fixes) for why this is required instead of SMTP) |
+   | `PYTHON_VERSION` | Python version used by Render's build environment |
+
+4. Deploy the service. Render will automatically rebuild and redeploy on every push to the connected branch.
+
+5. After the first deployment, run database migrations on the production database. This can be done by temporarily setting the Start Command to:
+   ```
+   python manage.py migrate && gunicorn body_therapy.wsgi
+   ```
+   or by running migrations manually via the Render Shell.
+
+6. Create a superuser on the production database via the Render Shell:
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+---
+
+### Security Notes
+
+- `DEBUG` is controlled by the presence of a `DEVELOPMENT` environment variable (`DEBUG = 'DEVELOPMENT' in os.environ`). This variable is set locally in `env.py` but is **not** set on Render, so `DEBUG` automatically evaluates to `False` in production.
+- All secret keys, API keys, and database credentials are stored as environment variables and are never committed to the repository (`env.py` is listed in `.gitignore`).
+- Static and media files are served via Cloudinary, keeping the application stateless and ensuring uploaded images persist across deployments.
 
 ## Bugs & Fixes
 
