@@ -2,10 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # Route for the main services list and category filtering
-    path('', views.all_services, name='services'),
-
-    # Route for adding a new service (only accessible to staff users)
+      # Route for adding a new service (only accessible to staff users)
     path('add/', views.add_service, name='add_service'),
 
     # Route for editing an existing service
