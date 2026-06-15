@@ -126,3 +126,35 @@ The following diagram illustrates the database schema and the relationships betw
 * **Payment Processing:** Stripe.
 * **Deployment:** Render.
 * **Version Control:** Git & GitHub.
+
+## Bugs and Fixes
+
+## Bugs & Fixes
+
+### Email Configuration Fix (Render Deployment)
+
+#### Problem
+Email functionality (signup verification, collaboration requests) returned a `500 Internal Server Error` on Render in production, while working correctly in local development.
+
+#### Diagnosis
+Render logs revealed that the Gunicorn worker was hanging on `socket.connect()` during SMTP connection attempts, eventually triggering `WORKER TIMEOUT` and a `SIGKILL` of the worker process. This occurred consistently with both Gmail SMTP and Brevo's SMTP relay, on port 587.
+
+**Root cause:** Render's free tier blocks all outbound connections on standard SMTP ports (25, 465, 587), regardless of the email provider used.
+
+#### Solution
+Replaced SMTP-based email sending with the Brevo HTTP API (REST API over HTTPS, port 443, which is not blocked by Render). Implemented a custom Django email backend (`BrevoAPIEmailBackend` in `body_therapy/email_backends.py`) that sends emails via `requests.post()` to `https://api.brevo.com/v3/smtp/email`, supporting both plain-text and HTML content.
+
+#### Outlook-Specific Issue
+A secondary issue emerged after the Brevo API fix: confirmation emails reached Outlook inboxes (in the Junk/Other folder), but the verification link displayed as plain unclickable text rather than a clickable link.
+
+**Cause:** django-allauth's email confirmation templates only included plain-text (`.txt`) versions. Without an HTML alternative, the email backend sent text-only emails. Gmail auto-links plain URLs in text emails; Outlook does not.
+
+**Fix:** Added HTML templates (`email_confirmation_message.html` and `email_confirmation_signup_message.html`) alongside the existing `.txt` templates, enabling Django to send multipart emails (`EmailMultiAlternatives`) with a properly rendered `<a href>` link.
+
+#### Verification
+Used Brevo's transactional email logs (delivery status, "Clicked links" tracking, and email content preview) to confirm both the text and HTML versions of each email were correctly generated and delivered.
+
+#### Result
+- Signup email verification works correctly on Render, including clickable links on Outlook
+- Collaboration request emails work on Render and include the full form submission details (contact info, collaboration type, message)
+- Solution is free, persistent, and independent of hosting tier
