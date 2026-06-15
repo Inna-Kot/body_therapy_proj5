@@ -71,9 +71,32 @@ Developed for a professional private sports massage practice, the app focuses on
 
 ---
 
+### Agile Development
+
+This project was planned and managed using **GitHub Issues** as an Agile tool. Each user story was created as a GitHub Issue, labelled by priority (MUST HAVE, SHOULD HAVE, FUTURE), and tracked throughout development.
+
+- [View all Issues](https://github.com/Inna-Kot/body_therapy_proj5/issues)
+- [Issue Templates](https://github.com/Inna-Kot/body_therapy_proj5/tree/main/.github/ISSUE_TEMPLATE)
+
 ## Design
 
 The design of the application is crafted to reflect professionalism, medical expertise, and trust, which are crucial for a private sports massage and injury recovery practice. 
+
+### Wireframes
+
+As the project was developed iteratively, the final design evolved directly from the initial concept. The screenshots below represent the implemented UI:
+
+**Home Page**
+![Home Page](docs/wireframe_home.png)
+
+**Service Detail Page**
+![Service Detail](docs/wireframe_service.png)
+
+**Checkout Page**
+![Checkout](docs/wireframe_checkout.png)
+
+**Mobile View**
+![Mobile](docs/wireframe_mobile.png)
 
 ### Color Scheme
 The color palette is deliberately minimalist, focusing on high contrast and readability to ensure a premium user experience.
@@ -88,8 +111,6 @@ The color palette is deliberately minimalist, focusing on high contrast and read
 * **Hero Backgrounds:** The site uses vintage anatomical drawings (e.g., the spine structure) as background imagery. This visual strategy immediately communicates a deep understanding of human anatomy and builds trust in the therapist's expertise.
 * **Cloudinary:** All dynamic imagery and media are served efficiently via Cloudinary to ensure fast loading times.
 
-### Wireframes
-* *The wireframes for Desktop, Tablet, and Mobile views will be added upon the completion of all frontend pages to accurately reflect the final user interface.*
 
 ## Database Design
 
