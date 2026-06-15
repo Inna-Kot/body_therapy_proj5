@@ -300,6 +300,24 @@ Used Brevo's transactional email logs (delivery status, "Clicked links" tracking
 - Collaboration request emails work on Render and include the full form submission details (contact info, collaboration type, message)
 - Solution is free, persistent, and independent of hosting tier
 
+## Marketing
+
+### Facebook Business Page
+
+A Facebook Business Page was created for **Kotkovets Vitaliy Body Therapy** to increase brand reach and connect with potential clients through social media.
+
+![Facebook Business Page Mockup](docs/facebook_mockup.png)
+
+The page includes:
+- Business category: Massage Therapist · Sports & Health
+- Practice location, opening hours, and contact details
+- Service listings with a direct booking call-to-action
+- Regular posts about therapy services, client testimonials, and wellness tips
+
+### Newsletter
+
+A newsletter signup form is integrated into the application footer, allowing visitors to subscribe and stay updated on new therapy services and health tips.
+
 ## Testing
 
 Manual testing was carried out throughout development to verify functionality, usability, responsiveness, and data management across the application.
