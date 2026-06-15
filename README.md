@@ -119,13 +119,29 @@ The following diagram illustrates the database schema and the relationships betw
 
 ## Technologies Used
 
-* **Languages:** HTML5, CSS3, JavaScript, Python.
-* **Framework:** Django.
-* **Database:** PostgreSQL (Neon.tech).
-* **Cloud Storage:** Cloudinary (for static and media files).
-* **Payment Processing:** Stripe.
-* **Deployment:** Render.
-* **Version Control:** Git & GitHub.
+### Languages
+* HTML5
+* CSS3
+* JavaScript
+* Python
+
+### Frameworks & Libraries
+* **Django** - the core web framework used to build the application.
+* **Bootstrap 4** - used for responsive layout, navigation, and UI components.
+* **Crispy Forms** - used to render Django forms with Bootstrap styling and validation feedback.
+* **django-allauth** - provides user registration, login, logout, and email verification.
+
+### Database
+* **PostgreSQL** (hosted on [Neon.tech](https://neon.tech)) - the production relational database.
+
+### APIs & External Services
+* **Stripe** - handles secure online payment processing.
+* **Cloudinary** - cloud storage for static and media files (images).
+* **Brevo** - sends transactional emails (signup verification, collaboration requests) via its HTTP API.
+
+### Deployment & Version Control
+* **Render** - hosting platform for the deployed application.
+* **Git & GitHub** - version control and repository hosting.
 
 ## Deployment
 
