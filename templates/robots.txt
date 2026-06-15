@@ -2,6 +2,6 @@ User-agent: *
 Disallow: /accounts/
 Disallow: /bag/
 Disallow: /checkout/
-Disallow: /profile/
+Disallow: /admin/
 
 Sitemap: https://body-therapy-proj5.onrender.com/sitemap.xml
