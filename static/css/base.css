@@ -291,4 +291,11 @@ body header #topnav .input-group input.form-control {
         font-size: 1.2rem;
         text-align: center;
     }
+     .hero-image-container h1 {
+        font-size: 2.5rem;
+        
+    }
+    .shop-now-button {
+        min-width: auto;
+    }
 }
