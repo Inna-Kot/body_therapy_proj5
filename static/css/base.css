@@ -293,9 +293,10 @@ body header #topnav .input-group input.form-control {
     }
      .hero-image-container h1 {
         font-size: 2.5rem;
-        
+        padding-bottom: 15vh;
     }
     .shop-now-button {
         min-width: auto;
     }
+    
 }
